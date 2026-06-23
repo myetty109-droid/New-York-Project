@@ -43,12 +43,12 @@ const pageTitle = "NEW YORK TEST";
         overflow: hidden;
       }
 
-      /* 좌우 캐릭터 이미지 */
+      /* 좌우 캐릭터 이미지 — 화면을 채우는 나무처럼 */
       .hero-side {
         position: absolute;
         bottom: 0;
-        width: 38%;
-        max-width: 480px;
+        width: 30%;
+        max-width: 500px;
         pointer-events: none;
         user-select: none;
       }
@@ -61,11 +61,12 @@ const pageTitle = "NEW YORK TEST";
       .hero-side.left  { left: 0; }
       .hero-side.right { right: 0; }
 
-      /* 가운데 콘텐츠 */
+      /* 가운데 콘텐츠 — 양쪽 이미지 너비만큼 여백 확보 */
       .hero-content {
         position: relative;
         z-index: 2;
         animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        padding: 0 34%;
       }
 
       .logo-wrapper { display: flex; justify-content: center; margin-bottom: 24px; }
@@ -113,12 +114,14 @@ const pageTitle = "NEW YORK TEST";
       }
 
       @media (max-width: 768px) {
-        .hero-side { width: 45%; }
+        .hero-side { width: 44%; }
+        .hero-content { padding: 0 8%; }
         .main-title { font-size: 2.2rem; }
         .subtitle { font-size: 1rem; }
       }
       @media (max-width: 480px) {
-        .hero-side { width: 50%; opacity: 0.4; }
+        .hero-side { width: 50%; opacity: 0.35; }
+        .hero-content { padding: 0; }
       }
 
       /* ═══════════════════════════════
@@ -338,42 +341,6 @@ const pageTitle = "NEW YORK TEST";
       .theme-red:hover .luggage-tag-body { background-color: #d6412e; box-shadow: 0 16px 32px rgba(226,77,58,0.25); }
 
       /* ═══════════════════════════════
-         CHARACTER STRIP
-      ═══════════════════════════════ */
-      .character-strip {
-        width: 100%;
-        overflow: hidden;
-        margin-bottom: 32px;
-        position: relative;
-        height: 90px;
-      }
-      /* 이미지 없을 때 스트립 숨김 */
-      .character-strip:not(:has(img[src])) { display: none; }
-
-      .character-track {
-        display: flex;
-        gap: 16px;
-        align-items: flex-end;
-        animation: slideChars 30s linear infinite;
-        width: max-content;
-      }
-
-      .character-track img {
-        height: 80px;
-        width: auto;
-        object-fit: contain;
-        opacity: 0.55;
-        filter: grayscale(20%);
-        transition: opacity 0.3s;
-      }
-      .character-track img:hover { opacity: 0.9; }
-
-      @keyframes slideChars {
-        0%   { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-      }
-
-      /* ═══════════════════════════════
          TAGLINE + QUOTE
       ═══════════════════════════════ */
       .archive-tagline {
@@ -415,13 +382,13 @@ const pageTitle = "NEW YORK TEST";
       .plane-deco {
         position: absolute;
         pointer-events: none;
-        opacity: 0.12;
-        font-size: 1.1rem;
+        opacity: 0.15;
+        font-size: 1.4rem;
         animation: flyPlane 18s linear infinite;
       }
       .plane-deco.p1 { top: 18%; animation-delay: 0s; }
-      .plane-deco.p2 { top: 72%; animation-delay: 7s; font-size: 0.85rem; }
-      .plane-deco.p3 { top: 44%; animation-delay: 13s; font-size: 0.95rem; }
+      .plane-deco.p2 { top: 72%; animation-delay: 7s; font-size: 1.1rem; }
+      .plane-deco.p3 { top: 44%; animation-delay: 13s; font-size: 1.2rem; }
 
       @keyframes flyPlane {
         0%   { left: -5%; opacity: 0; }
@@ -541,35 +508,6 @@ const pageTitle = "NEW YORK TEST";
       <span class="plane-deco p2">✈</span>
       <span class="plane-deco p3">✈</span>
 
-      <!-- 캐릭터 스트립 (무한 슬라이드) -->
-      <div class="character-strip">
-        <div class="character-track" id="char-track">
-          <img src="/character-landingpage-01.png" alt="type 01">
-          <img src="/character-landingpage-02.png" alt="type 02">
-          <img src="/character-landingpage-03.png" alt="type 03">
-          <img src="/character-landingpage-04.png" alt="type 04">
-          <img src="/character-landingpage-05.png" alt="type 05">
-          <img src="/character-landingpage-06.png" alt="type 06">
-          <img src="/character-landingpage-07.png" alt="type 07">
-          <img src="/character-landingpage-08.png" alt="type 08">
-          <img src="/character-landingpage-09.png" alt="type 09">
-          <img src="/character-landingpage-10.png" alt="type 10">
-          <img src="/character-landingpage-11.png" alt="type 11">
-          <!-- 무한 루프를 위한 복제 -->
-          <img src="/character-landingpage-01.png" alt="type 01">
-          <img src="/character-landingpage-02.png" alt="type 02">
-          <img src="/character-landingpage-03.png" alt="type 03">
-          <img src="/character-landingpage-04.png" alt="type 04">
-          <img src="/character-landingpage-05.png" alt="type 05">
-          <img src="/character-landingpage-06.png" alt="type 06">
-          <img src="/character-landingpage-07.png" alt="type 07">
-          <img src="/character-landingpage-08.png" alt="type 08">
-          <img src="/character-landingpage-09.png" alt="type 09">
-          <img src="/character-landingpage-10.png" alt="type 10">
-          <img src="/character-landingpage-11.png" alt="type 11">
-        </div>
-      </div>
-
       <div class="section-header">
         <h2>PROJECT ARCHIVES</h2>
         <div class="header-line"></div>
@@ -649,8 +587,28 @@ const pageTitle = "NEW YORK TEST";
       <!-- ✏️ 여기에 설명 텍스트를 붙여넣으세요 -->
       <div class="about-body">
         <p>
-          <!-- 텍스트를 이 안에 붙여넣으세요 -->
-        </p>
+  The New York Test is neither a standard informational storage nor a passive digital museum built to exhibit historical archives with detached honor. It does not hand the visitor a predetermined conclusion or a curated definition of a city upon entering the first page of the web experience. Instead, this platform operates as an intentional, dynamic medium, a structured void much like the physical urban grid itself, designed to catalyze a shift within the observer. The central inquiry animating this digital project does not ask what New York is, but rather focuses on an entirely internal outcome: how does the word New York change inside the user after navigating this interface? This personal transformation represents the ultimate destination and the true icing on the cake.
+</p>
+
+<p>
+  To investigate this perceptual shift, the project re-contextualizes a single, comprehensive archive of street photographs captured during open-ended walks through Manhattan and its surrounding boroughs. Serving as an aesthetic amplifier, the website funnels a singular raw reality into three separate conceptual lenses, a visual keyword recognition survey, a themed digital archive, and an interactive fiction game. By fracturing the same photographic assets across these distinct pathways, the project demonstrates how the urban landscape serves as an ambiguous text, shifting and reforming based completely on the framework through which it is perceived.
+</p>
+
+<p>
+  The first lens, a twenty-eight-question visual survey, draws directly from Charles Baudelaire’s theory of dual aesthetics. Baudelaire defined beauty as a product of two forces, a transient body that reflects the passing trends, styles, and fashions of an era, and an eternal soul containing an absolute value. By forcing participants to make instinctual, split-second choices between contrasting pairs of images, the survey captures the immediate, subconscious reactions of the observer to the city’s surfaces. When these individual selections are mapped through force-directed network analysis algorithms, they reveal a structured underlying logic. Fleeting individual whims coalesce into eleven distinct observer types, demonstrating that our aesthetic responses to the modern grid are deeply patterned rather than chaotic.
+</p>
+
+<p>
+  The second lens transforms the user into a traditional practitioner of flânerie through a curated photographic archive. Avoiding major landmarks and typical postcard views, the imagery isolates the overlooked gaps of the built environment, the quiet spaces between structures, the slant of afternoon light against aged brick, and the geometric shadows of fire escapes. Visitors are invited to pause and mark the visuals that cause a moment of internal arrest. The collective accumulation of these responses creates a secondary layer of data, transforming a private gallery experience into a shared, digital repository of human attention. This collaborative tracking maps the exact coordinates where the transient modern image connects with the eternal soul of collective resonance.
+</p>
+
+<p>
+  The final lens introduces an element of deliberate artifice through an interactive fiction piece where a stray pigeon steals the user's phone in the middle of Manhattan. In an era increasingly defined by predictable, automated routines, the game invokes the spirit of Dandyism, an intellectual stance that champions originality and spiritual heroism against the mundane. By imposing a highly stylized, playful narrative maze over the physical geography of the city, the interface forces the user to navigate a web of choices, accidents, and sudden turns. Whether the user recovers the device is ultimately irrelevant. The game utilizes structural artifice to jolt the observer out of passive consumption, demanding an active, ironic engagement with the texture and atmosphere of the streets.
+</p>
+
+<p>
+  By splitting a singular urban landscape into a quantitative network, a qualitative archive, and an interactive narrative, this project expands the historical boundaries of the flâneur. The website functions not as a static repository of data, but as a living amplifier of human perception. It invites you to step inside, wander without a pre-mapped destination, and discover how the digital city re-authors itself within your own mind.
+</p>
       </div>
     </section>
 
