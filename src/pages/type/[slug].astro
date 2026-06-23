@@ -1,0 +1,400 @@
+---
+export function getStaticPaths() {
+  return [
+    { params: { slug: "01" } },
+    { params: { slug: "02" } },
+    { params: { slug: "03" } },
+    { params: { slug: "04" } },
+    { params: { slug: "05" } },
+    { params: { slug: "06" } },
+    { params: { slug: "07" } },
+    { params: { slug: "08" } },
+    { params: { slug: "09" } },
+    { params: { slug: "10" } },
+    { params: { slug: "11" } },
+  ];
+}
+
+const types = [
+  {
+    id: "01",
+    number: "TYPE 01",
+    name: "The Central Park Sunbather",
+    nameKo: "센트럴 파크 선배서",
+    img: "/type-01.png",
+    locationImg: "/type-real-01.png",
+    locationName: "Central Park Sheep Meadow",
+    desc: "You have a rare gift. You can be in the middle of one of the most chaotic cities on earth and somehow find stillness. While everyone else is rushing, you're the one lying on the grass, face to the sun, completely unbothered.\n\nYou don't need the city to perform for you. People secretly envy this about you. Because that's wisdom most New Yorkers never figure out.",
+    tags: ["#stillness", "#unbothered", "#inner peace"],
+  },
+  {
+    id: "02",
+    number: "TYPE 02",
+    name: "The Brooklyn Brick",
+    nameKo: "브루클린 브릭",
+    img: "/type-02.png",
+    locationImg: "/type-real-02.png",
+    locationName: "Brooklyn Bridge",
+    desc: "You have an eye for what's real. Trendy neighborhoods and glass towers don't impress you. You understand that the most valuable things in this city were built long before anyone was trying to make them look good.\n\nPeople trust your taste without quite knowing why. It's because you've never been fooled by a fresh coat of paint.",
+    tags: ["#authenticity", "#raw taste", "#anti-trend"],
+  },
+  {
+    id: "03",
+    number: "TYPE 03",
+    name: "The Coney Dog",
+    nameKo: "코니 도그",
+    img: "/type-03.png",
+    locationImg: "/type-real-03.png",
+    locationName: "Coney Island — Nathan's Famous Hot Dog Restaurant",
+    desc: "You see beauty where others see decay, and that is genuinely a superpower. A rusty ferris wheel, a boardwalk that's seen better days, a hot dog stand that hasn't changed its menu since 1916. To you, these things are sacred.\n\nYou carry a little nostalgia wherever you go, but it's not sadness. It's just that you know something the glossy new version of the city has already forgotten.",
+    tags: ["#nostalgia", "#beauty in decay", "#sacred ordinary"],
+  },
+  {
+    id: "04",
+    number: "TYPE 04",
+    name: "The Chinatown Unicorn",
+    nameKo: "차이나타운 유니콘",
+    img: "/type-04.png",
+    locationImg: "/type-real-04.png",
+    locationName: "Chinatown — Golden Unicorn Dim Sum Restaurant",
+    desc: "You are drawn to density. Streets where five languages are spoken on a single block, where the smells change every ten feet, where nothing is curated and everything is real. This is where you feel most awake.\n\nWhile others gravitate toward the clean and the luxury, you head straight for the loud, the crowded, and the lively overwhelming. You understand that the most honest version of New York has always lived in places like this.",
+    tags: ["#density", "#multicultural", "#raw city"],
+  },
+  {
+    id: "05",
+    number: "TYPE 05",
+    name: "The Grand Central Clock",
+    nameKo: "그랜드 센트럴 클락",
+    img: "/type-05.png",
+    locationImg: "/type-real-05.png",
+    locationName: "Opal Clock — Grand Central Terminal Main Concourse",
+    desc: "You are both practical and deeply romantic, and this contradiction is your greatest charm.\n\nYou love the feeling of being in the middle of something. Thousands of people, all going somewhere, and you standing still at the center of it.\n\nYou find meaning in motion. You find poetry in commutes.",
+    tags: ["#romantic pragmatist", "#center of things", "#poetry in motion"],
+  },
+  {
+    id: "06",
+    number: "TYPE 06",
+    name: "The MET Mummy",
+    nameKo: "메트 뮤미",
+    img: "/type-06.png",
+    locationImg: "/type-real-06.png",
+    locationName: "Temple of Dendur — Metropolitan Museum of Art, Egyptian Wing",
+    desc: "You are genuinely unbothered by time. Ancient Egypt, Renaissance painting, medieval armor. You walk through five thousand years of human history and feel completely at home.\n\nYou find amusement in them, not in the past, but in modern times, surrounded by luxury avenues at your front and the leisure of Central Park at your back.",
+    tags: ["#timeless", "#history", "#unbothered by eras"],
+  },
+  {
+    id: "07",
+    number: "TYPE 07",
+    name: "The Library Lion",
+    nameKo: "라이브러리 라이언",
+    img: "/type-07.png",
+    locationImg: "/type-real-07.png",
+    locationName: '"Patience and Fortitude" — New York Public Library Main Entrance',
+    desc: "You believe that some things deserve to be taken seriously, and a city that gives you a place like this — marble floors, vaulted ceilings, two stone lions standing guard — is a city that agrees with you.\n\nYou are patient, you are thorough, and you are the kind of person who actually finishes the book. In a world of hot takes and short attention spans, you are the long read. People should read you more carefully.",
+    tags: ["#depth", "#patience", "#the long read"],
+  },
+  {
+    id: "08",
+    number: "TYPE 08",
+    name: "The MoMA Soup Can",
+    nameKo: "모마 수프 캔",
+    img: "/type-08.png",
+    locationImg: "/type-real-08.png",
+    locationName: 'Andy Warhol, "Campbell\'s Soup Cans" — Museum of Modern Art (MoMA)',
+    desc: "You look at a can of soup and see a philosophical statement. You look at a city block and see an argument about capitalism, aesthetics, and the nature of desire.\n\nYou have an ability to transcribe the city into well-written text. It makes you one of the most interesting people in any room.",
+    tags: ["#conceptual", "#aesthetics", "#capitalism & desire"],
+  },
+  {
+    id: "09",
+    number: "TYPE 09",
+    name: "The Times Square Gorilla",
+    nameKo: "타임스퀘어 고릴라",
+    img: "/type-09.png",
+    locationImg: "/type-real-09.png",
+    locationName: "Street Performer in a Gorilla Suit — Father Duffy Square, Times Square",
+    desc: "You have made your peace with the absurd. Neon lights, costumed characters, ten thousand tourists pointing cameras in every direction. While others are overwhelmed, you are quietly amused.\n\nYou understand that New York has always been a performance, and you've figured out the perfect role you should play.",
+    tags: ["#absurdist", "#performance", "#quiet amusement"],
+  },
+  {
+    id: "10",
+    number: "TYPE 10",
+    name: "The Oculus Rib",
+    nameKo: "오큘러스 립",
+    img: "/type-10.png",
+    locationImg: "/type-real-10.png",
+    locationName: "World Trade Center Oculus",
+    desc: "You are drawn to beautiful things that carry weight. A building that rises from the most grief-laden block in the city, shaped like wings, or bones, or something prehistoric.\n\nYou feel the whole complicated story of it. While other people walk through without noticing. That sensitivity is sometimes a burden, but it also means you experience this city at a depth most people never reach.",
+    tags: ["#grief & beauty", "#sensitivity", "#depth of experience"],
+  },
+  {
+    id: "11",
+    number: "TYPE 11",
+    name: "The Hudson Yards Pigeon",
+    nameKo: "허드슨 야드 피전",
+    img: "/type-11.png",
+    locationImg: "/type-real-11.png",
+    locationName: 'Ivan Argote, "Dinosaur" (Giant Pigeon) — The High Line Plinth, Hudson Yards',
+    desc: "You cannot be fooled by billion-dollar developments, carefully curated public spaces, architecture designed to make you feel like you're living in the future. However, you see right through it. You reveal what the city hides.\n\nYou belong everywhere and nowhere, unbothered and unimpressed. You are, in the most unexpected way, the freest creature in the city.",
+    tags: ["#free spirit", "#sees through spectacle", "#belongs everywhere"],
+  },
+];
+
+const { slug } = Astro.params;
+const type = types.find((t) => t.id === slug);
+const currentIndex = types.findIndex((t) => t.id === slug);
+const prev = currentIndex > 0 ? types[currentIndex - 1] : null;
+const next = currentIndex < types.length - 1 ? types[currentIndex + 1] : null;
+
+if (!type) return Astro.redirect("/datafy");
+---
+
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <title>{type.number} — {type.name}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+      :root {
+        --canvas:  #edebe4;
+        --brown:   #1c1412;
+        --orange:  #e24d3a;
+        --gray:    #5c524f;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        background-color: var(--canvas);
+        color: var(--brown);
+        font-family: 'Noto Sans KR', sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .page-wrapper {
+        max-width: 860px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 48px 24px 80px;
+      }
+
+      .back-btn {
+        display: inline-block;
+        color: var(--brown);
+        text-decoration: none;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.1rem;
+        border-bottom: 2px solid var(--brown);
+        margin-bottom: 48px;
+        transition: color 0.2s, border-color 0.2s;
+      }
+      .back-btn:hover { color: var(--orange); border-color: var(--orange); }
+
+      .detail-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 48px;
+        align-items: start;
+      }
+
+      .detail-image {
+        width: 100%;
+        border-radius: 12px;
+        border: 2px solid var(--brown);
+        overflow: hidden;
+        background: #e0ddd5;
+      }
+      .detail-image img {
+        width: 100%;
+        display: block;
+        object-fit: cover;
+      }
+
+      .detail-number {
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.12rem;
+        color: var(--orange);
+        margin-bottom: 10px;
+      }
+      .detail-name {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.2rem;
+        font-weight: 500;
+        line-height: 1.2;
+        margin-bottom: 6px;
+      }
+      .detail-name-ko {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: var(--gray);
+        margin-bottom: 28px;
+      }
+
+      .detail-line {
+        width: 32px;
+        height: 3px;
+        background: var(--orange);
+        margin-bottom: 24px;
+      }
+
+      .detail-desc {
+        font-size: 0.95rem;
+        line-height: 1.9;
+        color: #3a3330;
+        margin-bottom: 28px;
+        white-space: pre-line;
+      }
+
+      .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
+      .detail-tag {
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.06rem;
+        color: var(--brown);
+        background: #e0ddd5;
+        border-radius: 20px;
+        padding: 4px 12px;
+      }
+
+      /* 장소 섹션 */
+      .location-divider {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin: 56px 0 28px;
+      }
+      .location-divider h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.1rem;
+        font-weight: 500;
+        letter-spacing: 0.18rem;
+        white-space: nowrap;
+        color: var(--brown);
+      }
+      .location-divider::after {
+        content: '';
+        flex: 1;
+        height: 2px;
+        background: var(--orange);
+      }
+
+      .location-wrap {
+        border: 2px solid var(--brown);
+        border-radius: 10px;
+        overflow: hidden;
+        background: #fff;
+      }
+      .location-wrap img {
+        width: 100%;
+        display: block;
+        object-fit: cover;
+        max-height: 420px;
+        min-height: 200px;
+        background: #e8e5de;
+      }
+      .location-caption {
+        padding: 14px 18px;
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        font-size: 0.9rem;
+        color: var(--gray);
+        border-top: 1.5px solid #ddd9d0;
+        line-height: 1.5;
+      }
+
+      /* 이전/다음 네비게이션 */
+      .type-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 64px;
+        padding-top: 32px;
+        border-top: 1.5px solid #ccc8c0;
+        gap: 16px;
+      }
+      .nav-btn {
+        text-decoration: none;
+        color: var(--brown);
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.08rem;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        transition: color 0.2s;
+        max-width: 45%;
+      }
+      .nav-btn:hover { color: var(--orange); }
+      .nav-label {
+        font-size: 0.7rem;
+        font-weight: 400;
+        color: var(--gray);
+        letter-spacing: 0.1rem;
+      }
+      .nav-btn.next { text-align: right; margin-left: auto; }
+      .nav-spacer { flex: 1; min-width: 0; }
+
+      @media (max-width: 640px) {
+        .detail-grid { grid-template-columns: 1fr; gap: 28px; }
+        .detail-name { font-size: 1.7rem; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page-wrapper">
+
+      <a href="/datafy" class="back-btn">← BACK TO ARCHIVE</a>
+
+      <!-- 유형 설명 -->
+      <div class="detail-grid">
+        <div class="detail-image">
+          <img src={type.img} alt={type.name} />
+        </div>
+        <div class="detail-text">
+          <div class="detail-number">{type.number}</div>
+          <h1 class="detail-name">{type.name}</h1>
+          <div class="detail-name-ko">{type.nameKo}</div>
+          <div class="detail-line"></div>
+          <p class="detail-desc">{type.desc}</p>
+          <div class="tag-row">
+            {type.tags.map((tag) => (
+              <span class="detail-tag">{tag}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- 장소 사진 -->
+      <div class="location-divider"><h2>THE PLACE</h2></div>
+      <div class="location-wrap">
+        <img src={type.locationImg} alt={type.locationName} />
+        <div class="location-caption">{type.locationName}</div>
+      </div>
+
+      <!-- 이전/다음 네비게이션 -->
+      <nav class="type-nav">
+        {prev && (
+          <a href={`/type/${prev.id}`} class="nav-btn prev">
+            <span class="nav-label">← PREV</span>
+            <span>{prev.number} {prev.name}</span>
+          </a>
+        )}
+        {!prev && <div class="nav-spacer"></div>}
+
+        {next && (
+          <a href={`/type/${next.id}`} class="nav-btn next">
+            <span class="nav-label">NEXT →</span>
+            <span>{next.number} {next.name}</span>
+          </a>
+        )}
+        {!next && <div class="nav-spacer"></div>}
+      </nav>
+
+    </div>
+  </body>
+</html>

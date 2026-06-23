@@ -1,0 +1,154 @@
+---
+const pageTitle = "That pigeon took my phone!";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{pageTitle}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+      :root {
+        --pigeon-red:  #f04f45;   /* 배경 붉은색 */
+        --brown:       #1c1412;
+        --canvas:      #edebe4;
+        --white:       #ffffff;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        /* 붉은 배경 + pigeon.png 타일 패턴 */
+        background-color: var(--pigeon-red);
+        background-image: url('/pigeon.png');
+        background-repeat: repeat;
+        background-size: 180px auto;
+        background-position: center center;
+        min-height: 100vh;
+        font-family: 'Noto Sans KR', sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ── 페이지 래퍼 ── */
+      .page-wrapper {
+        max-width: 900px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 48px 24px 80px;
+      }
+
+      /* ── 뒤로가기 ── */
+      .back-btn {
+        display: inline-block;
+        color: var(--white);
+        text-decoration: none;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.1rem;
+        border-bottom: 2px solid rgba(255,255,255,0.6);
+        margin-bottom: 40px;
+        transition: border-color 0.2s, opacity 0.2s;
+      }
+      .back-btn:hover { border-color: var(--white); opacity: 0.75; }
+
+      /* ── 헤더 영역 ── */
+      .hero {
+        text-align: center;
+        margin-bottom: 44px;
+      }
+      .hero-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 3rem;
+        font-weight: 500;
+        color: var(--white);
+        line-height: 1.15;
+        letter-spacing: 0.02rem;
+        margin-bottom: 12px;
+        /* 붉은 배경과 구분되는 그림자 */
+        text-shadow: 0 2px 12px rgba(0,0,0,0.25);
+      }
+      .hero-sub {
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        font-size: 1.1rem;
+        color: rgba(255,255,255,0.82);
+        letter-spacing: 0.04rem;
+      }
+
+      /* ── 주황 구분선 (index와 동일한 언어) ── */
+      .header-line {
+        width: 35px;
+        height: 3px;
+        background-color: var(--brown);
+        margin: 20px auto 0;
+        opacity: 0.4;
+      }
+
+      /* ── 게임 컨테이너 ── */
+      .game-wrapper {
+        width: 100%;
+        border: 3px solid var(--brown);
+        border-radius: 10px;
+        overflow: hidden;
+        background: var(--white);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+      }
+
+      /* 트와인 HTML 파일을 iframe으로 임베드 */
+      .game-wrapper iframe {
+        width: 100%;
+        height: 680px;
+        border: none;
+        display: block;
+      }
+
+      /* ── 하단 안내 텍스트 ── */
+      .game-note {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 0.82rem;
+        color: rgba(255,255,255,0.7);
+        letter-spacing: 0.04rem;
+      }
+
+      /* ── 반응형 ── */
+      @media (max-width: 640px) {
+        .hero-title { font-size: 2rem; }
+        .game-wrapper iframe { height: 520px; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page-wrapper">
+
+      <a href="/" class="back-btn">← BACK TO HOMEPAGE</a>
+
+      <!-- 헤더 -->
+      <div class="hero">
+        <h1 class="hero-title">That pigeon took my phone!</h1>
+        <p class="hero-sub">the pigeon game</p>
+        <div class="header-line"></div>
+      </div>
+
+      <!-- 트와인 게임 임베드
+           트와인에서 'Publish to File'로 내보낸 HTML 파일을
+           /public/pigeon-game.html 로 저장하면 자동으로 표시됩니다 -->
+      <div class="game-wrapper">
+        <iframe
+          src="/pigeon-game.html"
+          title="That pigeon took my phone! — interactive fiction"
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <p class="game-note">
+        Use keyboard or click to navigate · Best experienced on desktop
+      </p>
+
+    </div>
+  </body>
+</html>

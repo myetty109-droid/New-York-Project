@@ -1,0 +1,217 @@
+---
+const pageTitle = "The Aesthetic Capture";
+
+const exhibitions = [
+  {
+    id: "hello-gorgeous",
+    title: "Hello, Gorgeous!",
+    count: 31,
+    desc: "31 photographs — urban beauty in the unexpected",
+    theme: "light",   /* 밝은 배경 */
+  },
+  {
+    id: "no-way-home",
+    title: "No Way Home",
+    count: 38,
+    desc: "38 photographs — the city that never lets you leave",
+    theme: "dark",
+  },
+  {
+    id: "eye-tornado",
+    title: "The Eye of a Tornado",
+    count: 28,
+    desc: "28 photographs — stillness inside the storm",
+    theme: "mid",
+  },
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{pageTitle}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+      :root {
+        --black:  #111111;
+        --white:  #f4f3ef;
+        --orange: #e24d3a;
+        --gray:   #888;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        background-color: var(--black);
+        color: var(--white);
+        font-family: 'Noto Sans KR', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        min-height: 100vh;
+      }
+
+      .page-wrapper {
+        max-width: 1000px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 48px 24px 80px;
+      }
+
+      /* 뒤로가기 */
+      .back-btn {
+        display: inline-block;
+        color: var(--white);
+        text-decoration: none;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.1rem;
+        border-bottom: 2px solid rgba(255,255,255,0.4);
+        margin-bottom: 48px;
+        transition: border-color 0.2s;
+      }
+      .back-btn:hover { border-color: var(--white); }
+
+      /* 페이지 헤더 */
+      .page-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.6rem;
+        font-weight: 500;
+        letter-spacing: 0.05rem;
+        color: var(--white);
+        margin-bottom: 10px;
+      }
+      .page-subtitle {
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        font-size: 1rem;
+        color: var(--gray);
+        margin-bottom: 56px;
+      }
+
+      /* 전시 배너 그리드 */
+      .exhibition-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      /* 배너 카드 */
+      .exhibition-card {
+        position: relative;
+        width: 100%;
+        border: 1.5px solid #333;
+        border-radius: 8px;
+        padding: 40px 48px;
+        cursor: pointer;
+        overflow: hidden;
+        transition: border-color 0.3s, transform 0.3s;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+      .exhibition-card:hover {
+        border-color: var(--orange);
+        transform: translateX(6px);
+      }
+
+      /* 배너 배경 숫자 워터마크 */
+      .card-watermark {
+        position: absolute;
+        right: 40px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-family: 'Playfair Display', serif;
+        font-size: 9rem;
+        font-weight: 500;
+        color: rgba(255,255,255,0.04);
+        pointer-events: none;
+        line-height: 1;
+        user-select: none;
+      }
+
+      .card-left { position: relative; z-index: 1; }
+
+      .card-index {
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.15rem;
+        color: var(--orange);
+        margin-bottom: 10px;
+      }
+      .card-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.9rem;
+        font-weight: 500;
+        color: var(--white);
+        line-height: 1.2;
+        margin-bottom: 12px;
+      }
+      .card-desc {
+        font-size: 0.84rem;
+        color: var(--gray);
+        line-height: 1.6;
+      }
+
+      .card-arrow {
+        font-size: 1.4rem;
+        color: rgba(255,255,255,0.2);
+        transition: color 0.3s, transform 0.3s;
+        flex-shrink: 0;
+        position: relative;
+        z-index: 1;
+      }
+      .exhibition-card:hover .card-arrow {
+        color: var(--orange);
+        transform: translateX(4px);
+      }
+
+      /* 테마별 배너 왼쪽 강조선 */
+      .exhibition-card::after {
+        content: '';
+        position: absolute;
+        left: 0; top: 0; bottom: 0;
+        width: 4px;
+        background: var(--orange);
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .exhibition-card:hover::after { opacity: 1; }
+
+      @media (max-width: 640px) {
+        .page-title { font-size: 2rem; }
+        .exhibition-card { padding: 28px 24px; }
+        .card-title { font-size: 1.5rem; }
+        .card-watermark { display: none; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page-wrapper">
+
+      <a href="/" class="back-btn">← BACK TO HOMEPAGE</a>
+
+      <h1 class="page-title">The Aesthetic Capture</h1>
+      <p class="page-subtitle">Three exhibitions. One city.</p>
+
+      <div class="exhibition-grid">
+        {exhibitions.map((ex, i) => (
+          <a href={`/gallery/${ex.id}`} class="exhibition-card">
+            <div class="card-watermark">{String(i + 1).padStart(2, '0')}</div>
+            <div class="card-left">
+              <div class="card-index">EXHIBITION {String(i + 1).padStart(2, '0')}</div>
+              <div class="card-title">{ex.title}</div>
+              <div class="card-desc">{ex.desc}</div>
+            </div>
+            <div class="card-arrow">→</div>
+          </a>
+        ))}
+      </div>
+
+    </div>
+  </body>
+</html>

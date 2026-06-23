@@ -1,0 +1,545 @@
+---
+const pageTitle = "Digital Logic & Intimacy";
+---
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <title>{pageTitle}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+      :root {
+        --canvas:  #edebe4;
+        --brown:   #1c1412;
+        --orange:  #e24d3a;
+        --white:   #ffffff;
+        --gray:    #5c524f;
+        --light:   #f5f3ee;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        background-color: var(--canvas);
+        color: var(--brown);
+        font-family: 'Noto Sans KR', sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ───────────────────────────────────────
+         SHARED LAYOUT
+      ─────────────────────────────────────── */
+      .page-wrapper {
+        max-width: 960px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 48px 24px 80px;
+      }
+
+      .back-btn {
+        display: inline-block;
+        color: var(--brown);
+        text-decoration: none;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.1rem;
+        border-bottom: 2px solid var(--brown);
+        margin-bottom: 40px;
+        transition: color 0.2s, border-color 0.2s;
+      }
+      .back-btn:hover { color: var(--orange); border-color: var(--orange); }
+
+      .page-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.6rem;
+        font-weight: 500;
+        letter-spacing: 0.05rem;
+        margin-bottom: 10px;
+        line-height: 1.2;
+      }
+      .page-subtitle {
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        font-size: 1.05rem;
+        color: var(--gray);
+        margin-bottom: 48px;
+      }
+
+      /* 섹션 구분선 */
+      .section-divider {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin: 64px 0 40px;
+      }
+      .section-divider h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.3rem;
+        font-weight: 500;
+        letter-spacing: 0.15rem;
+        white-space: nowrap;
+      }
+      .section-divider::after {
+        content: '';
+        flex: 1;
+        height: 2px;
+        background: var(--orange);
+      }
+
+      /* ───────────────────────────────────────
+         SECTION 1 — TALLY SURVEY
+      ─────────────────────────────────────── */
+      .tally-wrapper {
+        width: 100%;
+        border: 2px solid var(--brown);
+        border-radius: 8px;
+        background-color: var(--white);
+        overflow: hidden;
+      }
+
+      /* embed.js가 자동 리사이즈해주므로 height는 min만 지정 */
+      iframe[data-tally-src] {
+        width: 100%;
+        min-height: 600px;
+        height: auto;
+        border: none;
+        display: block;
+      }
+
+      /* ───────────────────────────────────────
+         SECTION 2 — GEPHI ANALYSIS
+      ─────────────────────────────────────── */
+      .analysis-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+        align-items: start;
+      }
+
+      .analysis-image-wrap {
+        border: 2px solid var(--brown);
+        border-radius: 8px;
+        overflow: hidden;
+        background: var(--white);
+        position: relative;
+        cursor: zoom-in;
+      }
+
+      .analysis-image-wrap img {
+        width: 100%;
+        display: block;
+        object-fit: cover;
+        transition: opacity 0.2s;
+      }
+      .analysis-image-wrap:hover img { opacity: 0.88; }
+
+      /* 확대 힌트 배지 */
+      .zoom-hint {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background: rgba(28,20,18,0.7);
+        color: #fff;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.06rem;
+        padding: 4px 9px;
+        border-radius: 20px;
+        pointer-events: none;
+      }
+
+      /* 라이트박스 오버레이 */
+      .lightbox {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.85);
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+        cursor: zoom-out;
+      }
+      .lightbox.open { display: flex; }
+      .lightbox img {
+        max-width: 92vw;
+        max-height: 92vh;
+        object-fit: contain;
+        border-radius: 6px;
+        box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+      }
+      .lightbox-close {
+        position: absolute;
+        top: 20px;
+        right: 28px;
+        color: #fff;
+        font-size: 2rem;
+        font-weight: 300;
+        cursor: pointer;
+        line-height: 1;
+        background: none;
+        border: none;
+      }
+
+      /* 이미지 없을 때 placeholder */
+      .image-placeholder {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        background: #e8e5de;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        color: var(--gray);
+        font-size: 0.85rem;
+      }
+      .image-placeholder span { font-size: 2rem; }
+
+      /* 텍스트 단락 간격 제거해서 이미지 높이만큼 글자가 채워지도록 */
+      .analysis-text h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.2rem;
+        font-weight: 500;
+        margin-bottom: 12px;
+        line-height: 1.3;
+      }
+      .analysis-text p {
+        font-size: 0.88rem;
+        line-height: 1.85;
+        color: #3a3330;
+        margin-bottom: 12px;
+      }
+      .analysis-text p:last-of-type { margin-bottom: 16px; }
+      .analysis-tag {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.08rem;
+        color: var(--orange);
+        border: 1.5px solid var(--orange);
+        border-radius: 20px;
+        padding: 3px 10px;
+        margin-right: 6px;
+        margin-bottom: 6px;
+      }
+
+      /* ───────────────────────────────────────
+         TYPE CARD PASTEL COLORS
+         파스텔톤 — 배경과 조화롭게
+      ─────────────────────────────────────── */
+      /* 01 노란색 */
+      .card-color-01 { background: #f5f0d0; }
+      /* 02 갈색 (웜 베이지 브라운) */
+      .card-color-02 { background: #ecdfc8; }
+      /* 03 하늘색 */
+      .card-color-03 { background: #d6eaf2; }
+      /* 04 빨간색 (파스텔 코랄) */
+      .card-color-04 { background: #f5d9d3; }
+      /* 05 민트 */
+      .card-color-05 { background: #d4ede6; }
+      /* 06 미라 — 얇은 연필선 줄무늬 패턴 */
+      .card-color-06 {
+        background-color: #f8f7f4;
+        background-image: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 10px,
+          rgba(60, 50, 40, 0.13) 10px,
+          rgba(60, 50, 40, 0.13) 11px
+        );
+      }
+      /* 07 분홍 */
+      .card-color-07 { background: #f5dde8; }
+      /* 08 어두운 금색 (황색) */
+      .card-color-08 { background: #ece4c0; }
+      /* 09 보라 */
+      .card-color-09 { background: #e8dff5; }
+      /* 11 보라+하늘 그라데이션 */
+      .card-color-11 { background: linear-gradient(135deg, #e4daf5 0%, #cfe8f5 100%); }
+
+      /* ───────────────────────────────────────
+         SECTION 3 — 11 TYPE ARCHIVE
+      ─────────────────────────────────────── */
+      .type-intro {
+        font-size: 0.9rem;
+        line-height: 1.8;
+        color: var(--gray);
+        max-width: 680px;
+        margin-bottom: 36px;
+      }
+
+      .type-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        align-items: stretch;
+      }
+
+      .type-card {
+        border: 2px solid var(--brown);
+        border-radius: 10px;
+        padding: 20px 18px;
+        background: var(--light);
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+
+      .type-number {
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.1rem;
+        color: var(--orange);
+        margin-bottom: 6px;
+      }
+      .type-name {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.05rem;
+        font-weight: 500;
+        line-height: 1.3;
+        min-height: 2.6rem; /* 두 줄 높이 고정 — 카드 크기 통일 */
+      }
+
+      /* 유형 카드 이미지 — 흰 배경 고정 */
+      .type-card-img {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+        border-radius: 6px;
+        margin-bottom: 14px;
+        display: block;
+        background: #ffffff;
+      }
+
+      /* 카드 전체를 링크처럼 */
+      .type-card-link {
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        flex-direction: column;
+      }
+      .type-card-link .type-card {
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        cursor: pointer;
+        flex: 1;
+      }
+      .type-card-link:hover .type-card {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 28px rgba(28, 20, 18, 0.12);
+      }
+
+      /* ───────────────────────────────────────
+         TYPE CARD PASTEL BACKGROUND COLORS
+         이미지·글자는 그대로, 카드 배경색만 변경
+      ─────────────────────────────────────── */
+      .card-color-01 { background: #f5f0d0; }
+      .card-color-02 { background: #ecdfc8; }
+      .card-color-03 { background: #d6eaf2; }
+      .card-color-04 { background: #f5d9d3; }
+      .card-color-05 { background: #d4ede6; }
+      .card-color-06 {
+        background-color: #f8f7f4;
+        background-image: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 10px,
+          rgba(60, 50, 40, 0.12) 10px,
+          rgba(60, 50, 40, 0.12) 11px
+        );
+      }
+      .card-color-07 { background: #f5dde8; }
+      .card-color-08 { background: #ece4c0; }
+      .card-color-09 { background: #e8dff5; }
+      .card-color-10 { background: #e8e6e3; }
+      .card-color-11 { background: linear-gradient(135deg, #e4daf5 0%, #cfe8f5 100%); }
+
+      /* ───────────────────────────────────────
+         RESPONSIVE
+      ─────────────────────────────────────── */
+      @media (max-width: 720px) {
+        .analysis-grid { grid-template-columns: 1fr; }
+        .type-grid { grid-template-columns: repeat(2, 1fr); }
+        .type-grid .type-card:last-child:nth-child(3n - 2) { grid-column: auto; }
+        .page-title { font-size: 2rem; }
+      }
+
+      @media (max-width: 480px) {
+        .type-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+
+    <script src="https://tally.so/widgets/embed.js" async></script>
+  </head>
+
+  <body>
+    <div class="page-wrapper">
+
+      <!-- 뒤로가기 -->
+      <a href="/" class="back-btn">← BACK TO HOMEPAGE</a>
+
+      <!-- 페이지 헤더 -->
+      <h1 class="page-title">New York Test</h1>
+      <p class="page-subtitle">Find out what type of city observer you are!</p>
+
+
+      <!-- ══════════════════════════════════════
+           SECTION 1 · SURVEY
+      ══════════════════════════════════════ -->
+      <div class="section-divider"><h2>TAKE THE SURVEY</h2></div>
+
+      <div class="tally-wrapper">
+        <iframe
+          data-tally-src="https://tally.so/r/vGKA4d?hideTitle=1&transparentBackground=0"
+          loading="lazy"
+          title="Digital Logic & Intimacy Survey">
+        </iframe>
+      </div>
+
+
+      <!-- ══════════════════════════════════════
+           SECTION 2 · GEPHI ANALYSIS
+      ══════════════════════════════════════ -->
+      <div class="section-divider"><h2>NETWORK ANALYSIS</h2></div>
+
+      <div class="analysis-grid">
+
+        <!-- 클릭하면 확대 -->
+        <div class="analysis-image-wrap" id="gephi-thumb" onclick="document.getElementById('gephi-lightbox').classList.add('open')">
+          <img
+            src="/gephi-network.png"
+            alt="Gephi network visualization"
+            onerror="this.parentElement.innerHTML='<div class=\'image-placeholder\'><span>🕸</span><span>Add gephi-network.png to /public</span></div>'"
+          />
+          <div class="zoom-hint">🔍 Click to enlarge</div>
+        </div>
+
+        <div class="analysis-text">
+          <h3>How does visual perception cluster?</h3>
+          <p>
+            The network graph visualized in the image maps how abstract concepts and qualitative attributes interconnect within collective perception when individuals evaluate visual imagery. The force-directed layout positions Refined, Local, and Global as the central, most heavily weighted hubs, indicating that these attributes serve as primary anchor points that bridge contrasting conceptual realms.
+          </p>
+          <p>
+            Specifically, these dominant hubs form strong associative paths that connect structured, institutional dimensions, such as Order, Anonymous, and Deliberate, with deeply emotional or spatial dualities, including Freedom, Intimate, and Nostalgic. In contrast, the small, peripheral Raw node on the far left represents a highly isolated attribute with weak connectivity, showing that unrefined or unprocessed qualities are rarely associated with the other dominant descriptors in this collective semantic framework.
+          </p>
+          <div>
+            <span class="analysis-tag">N = 00</span>
+            <span class="analysis-tag">Gephi 0.10</span>
+            <span class="analysis-tag">ForceAtlas2</span>
+            <span class="analysis-tag">Modularity Clustering</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 라이트박스 -->
+      <div class="lightbox" id="gephi-lightbox" onclick="this.classList.remove('open')">
+        <button class="lightbox-close" onclick="document.getElementById('gephi-lightbox').classList.remove('open')">×</button>
+        <img src="/gephi-network.png" alt="Gephi network visualization enlarged" />
+      </div>
+
+
+      <!-- ══════════════════════════════════════
+           SECTION 3 · 11 TYPE ARCHIVE
+      ══════════════════════════════════════ -->
+      <div class="section-divider"><h2>TYPE ARCHIVE</h2></div>
+
+      <p class="type-intro">
+        Based on survey responses, the way people experience New York divides into 11 distinct observer types. These types are not mutually exclusive — many respondents reflect a blend of more than one.
+      </p>
+
+      <div class="type-grid">
+
+        <a href="/type/01" class="type-card-link">
+          <div class="type-card card-color-01">
+            <img src="/type-01.png" alt="The Central Park Sunbather" class="type-card-img">
+            <div class="type-number">TYPE 01</div>
+            <div class="type-name">The Central Park Sunbather</div>
+          </div>
+        </a>
+
+        <a href="/type/02" class="type-card-link">
+          <div class="type-card card-color-02">
+            <img src="/type-02.png" alt="The Brooklyn Brick" class="type-card-img">
+            <div class="type-number">TYPE 02</div>
+            <div class="type-name">The Brooklyn Brick</div>
+          </div>
+        </a>
+
+        <a href="/type/03" class="type-card-link">
+          <div class="type-card card-color-03">
+            <img src="/type-03.png" alt="The Coney Dog" class="type-card-img">
+            <div class="type-number">TYPE 03</div>
+            <div class="type-name">The Coney Dog</div>
+          </div>
+        </a>
+
+        <a href="/type/04" class="type-card-link">
+          <div class="type-card card-color-04">
+            <img src="/type-04.png" alt="The Chinatown Unicorn" class="type-card-img">
+            <div class="type-number">TYPE 04</div>
+            <div class="type-name">The Chinatown Unicorn</div>
+          </div>
+        </a>
+
+        <a href="/type/05" class="type-card-link">
+          <div class="type-card card-color-05">
+            <img src="/type-05.png" alt="The Grand Central Clock" class="type-card-img">
+            <div class="type-number">TYPE 05</div>
+            <div class="type-name">The Grand Central Clock</div>
+          </div>
+        </a>
+
+        <a href="/type/06" class="type-card-link">
+          <div class="type-card card-color-06">
+            <img src="/type-06.png" alt="The MET Mummy" class="type-card-img">
+            <div class="type-number">TYPE 06</div>
+            <div class="type-name">The MET Mummy</div>
+          </div>
+        </a>
+
+        <a href="/type/07" class="type-card-link">
+          <div class="type-card card-color-07">
+            <img src="/type-07.png" alt="The Library Lion" class="type-card-img">
+            <div class="type-number">TYPE 07</div>
+            <div class="type-name">The Library Lion</div>
+          </div>
+        </a>
+
+        <a href="/type/08" class="type-card-link">
+          <div class="type-card card-color-08">
+            <img src="/type-08.png" alt="The MoMA Soup Can" class="type-card-img">
+            <div class="type-number">TYPE 08</div>
+            <div class="type-name">The MoMA Soup Can</div>
+          </div>
+        </a>
+
+        <a href="/type/09" class="type-card-link">
+          <div class="type-card card-color-09">
+            <img src="/type-09.png" alt="The Times Square Gorilla" class="type-card-img">
+            <div class="type-number">TYPE 09</div>
+            <div class="type-name">The Times Square Gorilla</div>
+          </div>
+        </a>
+
+        <a href="/type/10" class="type-card-link">
+          <div class="type-card card-color-10">
+            <img src="/type-10.png" alt="The Oculus Rib" class="type-card-img">
+            <div class="type-number">TYPE 10</div>
+            <div class="type-name">The Oculus Rib</div>
+          </div>
+        </a>
+
+        <a href="/type/11" class="type-card-link" style="grid-column: 2;">
+          <div class="type-card card-color-11">
+            <img src="/type-11.png" alt="The Hudson Yards Pigeon" class="type-card-img">
+            <div class="type-number">TYPE 11</div>
+            <div class="type-name">The Hudson Yards Pigeon</div>
+          </div>
+        </a>
+
+      </div><!-- /type-grid -->
+
+    </div><!-- /page-wrapper -->
+  </body>
+</html>

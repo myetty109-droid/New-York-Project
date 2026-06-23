@@ -1,0 +1,283 @@
+---
+export function getStaticPaths() {
+  return [
+    { params: { show: "hello-gorgeous" } },
+    { params: { show: "no-way-home" } },
+    { params: { show: "eye-tornado" } },
+  ];
+}
+
+/* 전시별 메타데이터 */
+const exhibitions = {
+  "hello-gorgeous": {
+    title: "Hello, Gorgeous!",
+    desc: "Urban beauty in the unexpected",
+    prefix: "hello-gorgeous",
+    count: 31,
+  },
+  "no-way-home": {
+    title: "No Way Home",
+    desc: "The city that never lets you leave",
+    prefix: "no-way-home",
+    count: 38,
+  },
+  "eye-tornado": {
+    title: "The Eye of a Tornado",
+    desc: "Stillness inside the storm",
+    prefix: "eye-tornado",
+    count: 28,
+  },
+};
+
+const { show } = Astro.params;
+const ex = exhibitions[show];
+if (!ex) return Astro.redirect("/aesthetics");
+
+/* 사진 배열 생성 — 파일명 공백/괄호를 URL 인코딩 */
+const photos = Array.from({ length: ex.count }, (_, i) => ({
+  id: `${ex.prefix}-${i + 1}`,
+  src: `/${encodeURIComponent(`${ex.prefix} (${i + 1}).png`)}`,
+  index: i + 1,
+}));
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{ex.title} — The Aesthetic Capture</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+      :root {
+        --black:  #111111;
+        --white:  #f4f3ef;
+        --orange: #e24d3a;
+        --gray:   #666;
+        --heart:  #e24d3a;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        background-color: var(--black);
+        color: var(--white);
+        font-family: 'Noto Sans KR', sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .page-wrapper {
+        max-width: 1100px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 48px 24px 80px;
+      }
+
+      /* 뒤로가기 */
+      .back-btn {
+        display: inline-block;
+        color: var(--white);
+        text-decoration: none;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.1rem;
+        border-bottom: 2px solid rgba(255,255,255,0.3);
+        margin-bottom: 40px;
+        transition: border-color 0.2s;
+      }
+      .back-btn:hover { border-color: var(--white); }
+
+      /* 헤더 */
+      .ex-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.4rem;
+        font-weight: 500;
+        margin-bottom: 8px;
+      }
+      .ex-desc {
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        font-size: 1rem;
+        color: var(--gray);
+        margin-bottom: 48px;
+      }
+
+      /* ── 사진첩 그리드 (masonry-like columns) ── */
+      .photo-grid {
+        columns: 3;
+        column-gap: 16px;
+      }
+
+      /* 사진 카드 */
+      .photo-card {
+        break-inside: avoid;
+        margin-bottom: 16px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 4px;
+        background: #1a1a1a;
+        cursor: pointer;
+      }
+
+      /* 사진 이미지 — 가로/세로 비율을 자연스럽게 유지 */
+      .photo-card img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: contain;
+        transition: opacity 0.3s;
+      }
+      .photo-card:hover img { opacity: 0.85; }
+
+      /* 하트 오버레이 */
+      .heart-overlay {
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        padding: 10px 14px;
+        background: linear-gradient(transparent, rgba(0,0,0,0.55));
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 6px;
+        opacity: 0;
+        transition: opacity 0.25s;
+      }
+      .photo-card:hover .heart-overlay { opacity: 1; }
+
+      .heart-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1.3rem;
+        line-height: 1;
+        padding: 4px;
+        transition: transform 0.15s;
+        color: rgba(255,255,255,0.6);
+      }
+      .heart-btn:hover { transform: scale(1.2); }
+      .heart-btn.liked { color: var(--heart); }
+
+      /* 하트 숫자 */
+      .heart-count {
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: rgba(255,255,255,0.75);
+        min-width: 16px;
+        text-align: left;
+      }
+
+      /* 하트 눌렸을 때 펑 애니메이션 */
+      @keyframes heartPop {
+        0%   { transform: scale(1); }
+        40%  { transform: scale(1.5); }
+        100% { transform: scale(1); }
+      }
+      .heart-btn.pop { animation: heartPop 0.3s ease; }
+
+      @media (max-width: 768px) {
+        .photo-grid { columns: 2; }
+        .ex-title { font-size: 1.8rem; }
+      }
+      @media (max-width: 480px) {
+        .photo-grid { columns: 1; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page-wrapper">
+
+      <a href="/aesthetics" class="back-btn">← BACK TO EXHIBITIONS</a>
+
+      <h1 class="ex-title">{ex.title}</h1>
+      <p class="ex-desc">{ex.desc}</p>
+
+      <div class="photo-grid" id="photo-grid">
+        {photos.map((photo) => (
+          <div class="photo-card" data-id={photo.id}>
+            <img
+              src={photo.src}
+              alt={`${ex.title} — photo ${photo.index}`}
+              loading="lazy"
+            />
+            <div class="heart-overlay">
+              <span class="heart-count" data-count-id={photo.id}>0</span>
+              <button
+                class="heart-btn"
+                data-photo-id={photo.id}
+                aria-label="Like this photo"
+              >♡</button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+
+    <!-- 하트 기능 (Firebase 실시간 공유) -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+      import { getDatabase, ref, runTransaction, onValue }
+        from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+      /* ✏️ 여기에 본인 Firebase 설정값을 붙여넣으세요 */
+      const firebaseConfig = {
+    apiKey:            "AIzaSyDnPDGEsWy31YWruVjmJ1Q0rw1mkCNIj1U",
+    authDomain:        "newyork-test-3ea59.firebaseapp.com",
+    databaseURL:       "https://newyork-test-3ea59-default-rtdb.firebaseio.com",
+    projectId:         "newyork-test-3ea59",
+    storageBucket:     "newyork-test-3ea59.firebasestorage.app",
+    messagingSenderId: "231167350863",
+    appId:             "1:231167350863:web:f722fdba395b789420b23a",
+    };
+
+      const app = initializeApp(firebaseConfig);
+      const db  = getDatabase(app);
+
+      const LIKED_KEY = "nytest_liked_photos";
+      const liked = new Set(JSON.parse(localStorage.getItem(LIKED_KEY) || "[]"));
+
+      function saveLiked() {
+        localStorage.setItem(LIKED_KEY, JSON.stringify([...liked]));
+      }
+
+      document.querySelectorAll(".heart-btn").forEach((btn) => {
+        const photoId = btn.dataset.photoId;
+        const countEl = document.querySelector(`[data-count-id="${photoId}"]`);
+
+        /* 이미 누른 사진 복원 */
+        if (liked.has(photoId)) {
+          btn.textContent = "♥";
+          btn.classList.add("liked");
+        }
+
+        /* Firebase 실시간 구독 — 다른 사람 하트도 즉시 반영 */
+        const likesRef = ref(db, `likes/${photoId}`);
+        onValue(likesRef, (snap) => {
+          const val = snap.val() || 0;
+          if (countEl) countEl.textContent = val > 0 ? val : "";
+        });
+
+        /* 클릭 */
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          if (liked.has(photoId)) {
+            liked.delete(photoId);
+            btn.textContent = "♡";
+            btn.classList.remove("liked");
+            runTransaction(likesRef, (cur) => Math.max((cur || 0) - 1, 0));
+          } else {
+            liked.add(photoId);
+            btn.textContent = "♥";
+            btn.classList.add("liked");
+            btn.classList.add("pop");
+            btn.addEventListener("animationend", () => btn.classList.remove("pop"), { once: true });
+            runTransaction(likesRef, (cur) => (cur || 0) + 1);
+          }
+          saveLiked();
+        });
+      });
+    </script>
+  </body>
+</html>
