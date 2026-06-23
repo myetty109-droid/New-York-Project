@@ -39,9 +39,34 @@ const pageTitle = "NEW YORK TEST";
         align-items: center;
         text-align: center;
         padding: 20px;
+        position: relative;
+        overflow: hidden;
       }
 
-      .hero-content { animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+      /* 좌우 캐릭터 이미지 */
+      .hero-side {
+        position: absolute;
+        bottom: 0;
+        width: 38%;
+        max-width: 480px;
+        pointer-events: none;
+        user-select: none;
+      }
+      .hero-side img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: contain;
+      }
+      .hero-side.left  { left: 0; }
+      .hero-side.right { right: 0; }
+
+      /* 가운데 콘텐츠 */
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+      }
 
       .logo-wrapper { display: flex; justify-content: center; margin-bottom: 24px; }
       .main-logo { max-height: 120px; width: auto; object-fit: contain; }
@@ -85,6 +110,15 @@ const pageTitle = "NEW YORK TEST";
       .start-button:hover {
         background-color: var(--orange);
         transform: scale(1.05);
+      }
+
+      @media (max-width: 768px) {
+        .hero-side { width: 45%; }
+        .main-title { font-size: 2.2rem; }
+        .subtitle { font-size: 1rem; }
+      }
+      @media (max-width: 480px) {
+        .hero-side { width: 50%; opacity: 0.4; }
       }
 
       /* ═══════════════════════════════
@@ -304,8 +338,97 @@ const pageTitle = "NEW YORK TEST";
       .theme-red:hover .luggage-tag-body { background-color: #d6412e; box-shadow: 0 16px 32px rgba(226,77,58,0.25); }
 
       /* ═══════════════════════════════
-         SECTION 3 — ABOUT
+         CHARACTER STRIP
       ═══════════════════════════════ */
+      .character-strip {
+        width: 100%;
+        overflow: hidden;
+        margin-bottom: 32px;
+        position: relative;
+        height: 90px;
+      }
+      /* 이미지 없을 때 스트립 숨김 */
+      .character-strip:not(:has(img[src])) { display: none; }
+
+      .character-track {
+        display: flex;
+        gap: 16px;
+        align-items: flex-end;
+        animation: slideChars 30s linear infinite;
+        width: max-content;
+      }
+
+      .character-track img {
+        height: 80px;
+        width: auto;
+        object-fit: contain;
+        opacity: 0.55;
+        filter: grayscale(20%);
+        transition: opacity 0.3s;
+      }
+      .character-track img:hover { opacity: 0.9; }
+
+      @keyframes slideChars {
+        0%   { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+
+      /* ═══════════════════════════════
+         TAGLINE + QUOTE
+      ═══════════════════════════════ */
+      .archive-tagline {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 0.88rem;
+        color: #7a6e68;
+        letter-spacing: 0.04rem;
+        line-height: 1.7;
+        max-width: 600px;
+      }
+
+      .archive-quote {
+        text-align: center;
+        margin-top: 28px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(28,20,18,0.1);
+        width: 100%;
+        max-width: 560px;
+      }
+      .archive-quote blockquote {
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        font-size: 0.92rem;
+        color: #5c524f;
+        line-height: 1.75;
+        margin-bottom: 6px;
+      }
+      .archive-quote cite {
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.1rem;
+        color: #9a8e88;
+      }
+
+      /* ═══════════════════════════════
+         AIRPLANE DECORATION
+      ═══════════════════════════════ */
+      .plane-deco {
+        position: absolute;
+        pointer-events: none;
+        opacity: 0.12;
+        font-size: 1.1rem;
+        animation: flyPlane 18s linear infinite;
+      }
+      .plane-deco.p1 { top: 18%; animation-delay: 0s; }
+      .plane-deco.p2 { top: 72%; animation-delay: 7s; font-size: 0.85rem; }
+      .plane-deco.p3 { top: 44%; animation-delay: 13s; font-size: 0.95rem; }
+
+      @keyframes flyPlane {
+        0%   { left: -5%; opacity: 0; }
+        5%   { opacity: 0.12; }
+        95%  { opacity: 0.12; }
+        100% { left: 105%; opacity: 0; }
+      }
       .about-section {
         min-height: 100vh;
         display: flex;
@@ -381,6 +504,13 @@ const pageTitle = "NEW YORK TEST";
 
     <!-- ① HERO -->
     <section class="hero-section">
+
+      <!-- 왼쪽 캐릭터 -->
+      <div class="hero-side left">
+        <img src="/landingpage-left.png" alt="" />
+      </div>
+
+      <!-- 가운데 콘텐츠 -->
       <div class="hero-content">
         <div class="logo-wrapper">
           <img
@@ -395,14 +525,61 @@ const pageTitle = "NEW YORK TEST";
         <p class="subtitle">Look New, Look Again</p>
         <button id="start-btn" class="start-button">FIND OUT</button>
       </div>
+
+      <!-- 오른쪽 캐릭터 -->
+      <div class="hero-side right">
+        <img src="/landingpage-right.png" alt="" />
+      </div>
+
     </section>
 
     <!-- ② ARCHIVE -->
     <section id="content-section" class="content-section">
+
+      <!-- 비행기 장식 -->
+      <span class="plane-deco p1">✈</span>
+      <span class="plane-deco p2">✈</span>
+      <span class="plane-deco p3">✈</span>
+
+      <!-- 캐릭터 스트립 (무한 슬라이드) -->
+      <div class="character-strip">
+        <div class="character-track" id="char-track">
+          <img src="/character-landingpage-01.png" alt="type 01">
+          <img src="/character-landingpage-02.png" alt="type 02">
+          <img src="/character-landingpage-03.png" alt="type 03">
+          <img src="/character-landingpage-04.png" alt="type 04">
+          <img src="/character-landingpage-05.png" alt="type 05">
+          <img src="/character-landingpage-06.png" alt="type 06">
+          <img src="/character-landingpage-07.png" alt="type 07">
+          <img src="/character-landingpage-08.png" alt="type 08">
+          <img src="/character-landingpage-09.png" alt="type 09">
+          <img src="/character-landingpage-10.png" alt="type 10">
+          <img src="/character-landingpage-11.png" alt="type 11">
+          <!-- 무한 루프를 위한 복제 -->
+          <img src="/character-landingpage-01.png" alt="type 01">
+          <img src="/character-landingpage-02.png" alt="type 02">
+          <img src="/character-landingpage-03.png" alt="type 03">
+          <img src="/character-landingpage-04.png" alt="type 04">
+          <img src="/character-landingpage-05.png" alt="type 05">
+          <img src="/character-landingpage-06.png" alt="type 06">
+          <img src="/character-landingpage-07.png" alt="type 07">
+          <img src="/character-landingpage-08.png" alt="type 08">
+          <img src="/character-landingpage-09.png" alt="type 09">
+          <img src="/character-landingpage-10.png" alt="type 10">
+          <img src="/character-landingpage-11.png" alt="type 11">
+        </div>
+      </div>
+
       <div class="section-header">
         <h2>PROJECT ARCHIVES</h2>
         <div class="header-line"></div>
       </div>
+
+      <!-- 태그라인 -->
+      <p class="archive-tagline">
+        Take the test to discover your observer type, explore the photo archive,<br>
+        and lose yourself in a game set in the streets of New York.
+      </p>
 
       <div class="tag-grid">
 
@@ -414,7 +591,7 @@ const pageTitle = "NEW YORK TEST";
             <div class="tag-flight">NYC · 01</div>
             <div class="tag-content">
               <h3>New York Test</h3>
-              <p>Take the test and find out what kind of city observer you are!</p>
+              <p>Take the test and find out what kind of city observer you are through New York!</p>
             </div>
             <a href="/datafy" class="card-link">Take Survey →</a>
           </div>
@@ -427,7 +604,7 @@ const pageTitle = "NEW YORK TEST";
             <div class="tag-slot"></div>
             <div class="tag-flight">NYC · 02</div>
             <div class="tag-content">
-              <h3>The Pigeon and The Unseen</h3>
+              <h3>The Pigeon and the Unseen</h3>
               <p>Check out our photo archive and vote for your best pick!</p>
             </div>
             <a href="/aesthetics" class="card-link">Open Gallery →</a>
@@ -448,6 +625,14 @@ const pageTitle = "NEW YORK TEST";
           </div>
         </div>
 
+      </div>
+
+      <!-- 보들레르 명언 -->
+      <div class="archive-quote">
+        <blockquote>
+          "For the perfect flâneur, for the passionate spectator, it is an immense joy to set up house in the heart of the multitude, amid the ebb and flow of movement, in the midst of the fugitive and the infinite."
+        </blockquote>
+        <cite>— Charles Baudelaire, The Painter of Modern Life, 1863</cite>
       </div>
 
       <!-- 우하단 다음 섹션 이동 버튼 -->
