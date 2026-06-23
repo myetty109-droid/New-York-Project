@@ -38,35 +38,37 @@ const pageTitle = "NEW YORK TEST";
         justify-content: center;
         align-items: center;
         text-align: center;
-        padding: 20px;
+        padding: 0 40px;
         position: relative;
         overflow: hidden;
       }
 
-      /* 좌우 캐릭터 이미지 크기 키우기 및 고정축 조정 */
+      /* 좌우 캐릭터 이미지 — 세로 길이에 맞춰 화면을 채우는 기둥으로 설정 */
       .hero-side {
         position: absolute;
-        bottom: 0;
-        width: 20vw; /* 화면 해상도에 맞춰 시원하게 크기 확대 */
+        bottom: -2vh;          /* 바닥에 자연스럽게 걸치도록 설정 */
+        height: 85vh;          /* 화면 세로 높이의 85% 크기만큼 확보 */
+        width: auto;           /* 비율 깨짐 방지 */
         pointer-events: none;
         user-select: none;
         z-index: 1;
       }
       .hero-side img {
-        width: 100%;
-        height: auto;
+        height: 100%;          /* 부모 레벨(.hero-side)의 세로 높이를 꽉 채움 */
+        width: auto;           /* 가로 너비는 원본 일러스트 비율 유지 */
         display: block;
         object-fit: contain;
       }
-      .hero-side.left  { left: 2vw; }  /* 화면 왼쪽 끝에서 약간의 여백 */
-      .hero-side.right { right: 2vw; } /* 화면 오른쪽 끝에서 약간의 여백 */
+      .hero-side.left  { left: 4vw; }   /* 왼쪽 기둥 위치 */
+      .hero-side.right { right: 4vw; }  /* 오른쪽 기둥 위치 */
 
-      /* 가운데 콘텐츠 — 양쪽 이미지가 커짐에 따라 좌우 패딩 최적화 */
+      /* 가운데 콘텐츠 — 양옆 거대 기둥 일러스트 사이 공간 확보 */
       .hero-content {
         position: relative;
         z-index: 2;
         animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        padding: 0 25%;
+        max-width: 600px;      /* 텍스트 줄바꿈 및 기둥과의 충돌 방지 */
+        margin: 0 auto;
       }
 
       .logo-wrapper { display: flex; justify-content: center; margin-bottom: 24px; }
@@ -85,6 +87,7 @@ const pageTitle = "NEW YORK TEST";
         letter-spacing: 0.2rem;
         color: var(--brown);
         margin-bottom: 16px;
+        line-height: 1.2;
       }
 
       .subtitle {
@@ -113,19 +116,17 @@ const pageTitle = "NEW YORK TEST";
         transform: scale(1.05);
       }
 
-      @media (max-width: 1024px) {
-        .hero-side { width: 25vw; }
-        .hero-content { padding: 0 15%; }
+      /* 반응형: 화면이 좁아지면 기둥들이 타이틀 글자와 겹치지 않게 크기/배치 조절 */
+      @media (max-width: 1200px) {
+        .hero-side { height: 70vh; }
+        .main-title { font-size: 3rem; }
       }
       @media (max-width: 768px) {
-        .hero-side { width: 35vw; opacity: 0.5; }
-        .hero-content { padding: 0 5%; }
-        .main-title { font-size: 2.2rem; }
-        .subtitle { font-size: 1rem; }
-      }
-      @media (max-width: 480px) {
-        .hero-side { width: 45vw; opacity: 0.25; }
-        .hero-content { padding: 0; }
+        .hero-side { height: 50vh; opacity: 0.25; bottom: 0; }
+        .hero-side.left  { left: 0; }
+        .hero-side.right { right: 0; }
+        .main-title { font-size: 2.4rem; }
+        .subtitle { font-size: 1.1rem; }
       }
 
       /* ═══════════════════════════════
@@ -462,15 +463,12 @@ const pageTitle = "NEW YORK TEST";
 
   <body>
 
-    <!-- ① HERO -->
     <section class="hero-section">
 
-      <!-- 왼쪽 캐릭터 -->
       <div class="hero-side left">
-        <img src="/landingpage-left.png" alt="" />
+        <img src="/landingpage-left.png" alt="Left Pillar Illustration" />
       </div>
 
-      <!-- 가운데 콘텐츠 -->
       <div class="hero-content">
         <div class="logo-wrapper">
           <img
@@ -486,17 +484,14 @@ const pageTitle = "NEW YORK TEST";
         <button id="start-btn" class="start-button">FIND OUT</button>
       </div>
 
-      <!-- 오른쪽 캐릭터 -->
       <div class="hero-side right">
-        <img src="/landingpage-right.png" alt="" />
+        <img src="/landingpage-right.png" alt="Right Pillar Illustration" />
       </div>
 
     </section>
 
-    <!-- ② ARCHIVE -->
     <section id="content-section" class="content-section">
 
-      <!-- 비행기 장식 -->
       <span class="plane-deco p1">✈</span>
       <span class="plane-deco p2">✈</span>
       <span class="plane-deco p3">✈</span>
@@ -506,15 +501,13 @@ const pageTitle = "NEW YORK TEST";
         <div class="header-line"></div>
       </div>
 
-      <!-- 태그라인 -->
       <p class="archive-tagline">
         Take the test to discover your observer type, explore the photo archive,<br>
-        and lose yourself in a game set in the streets of New New York.
+        and lose yourself in a game set in the streets of New York.
       </p>
 
       <div class="tag-grid">
 
-        <!-- TAG 1 — 베이지 -->
         <div class="luggage-tag-container theme-beige" onclick="location.href='/datafy'">
           <div class="tag-strap"></div>
           <div class="luggage-tag-body">
@@ -528,7 +521,6 @@ const pageTitle = "NEW YORK TEST";
           </div>
         </div>
 
-        <!-- TAG 2 — 블랙 -->
         <div class="luggage-tag-container theme-black" onclick="location.href='/aesthetics'">
           <div class="tag-strap"></div>
           <div class="luggage-tag-body">
@@ -542,7 +534,6 @@ const pageTitle = "NEW YORK TEST";
           </div>
         </div>
 
-        <!-- TAG 3 — 레드 -->
         <div class="luggage-tag-container theme-red" onclick="location.href='/narrative'">
           <div class="tag-strap"></div>
           <div class="luggage-tag-body">
@@ -558,7 +549,6 @@ const pageTitle = "NEW YORK TEST";
 
       </div>
 
-      <!-- 보들레르 명언 -->
       <div class="archive-quote">
         <blockquote>
           "For the perfect flâneur, for the passionate spectator, it is an immense joy to set up house in the heart of the multitude, amid the ebb and flow of movement, in the midst of the fugitive and the infinite."
@@ -566,18 +556,15 @@ const pageTitle = "NEW YORK TEST";
         <cite>— Charles Baudelaire, The Painter of Modern Life, 1863</cite>
       </div>
 
-      <!-- 우하단 다음 섹션 이동 버튼 -->
       <button class="scroll-next-btn" id="about-btn">ABOUT THIS PROJECT</button>
     </section>
 
-    <!-- ③ ABOUT -->
     <section id="about-section" class="about-section">
       <div class="about-header">
         <h2>ABOUT</h2>
         <div class="about-line"></div>
       </div>
 
-      <!-- Methodological Reflection 본문 통합 완료 -->
       <div class="about-body">
         <h3 style="font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 500; margin-bottom: 20px;">Methodological Reflection: The New York Test</h3>
 
