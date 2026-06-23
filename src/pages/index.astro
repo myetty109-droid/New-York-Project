@@ -43,14 +43,14 @@ const pageTitle = "NEW YORK TEST";
         overflow: hidden;
       }
 
-      /* 좌우 캐릭터 이미지 — 화면을 채우는 나무처럼 */
+      /* 좌우 캐릭터 이미지 크기 키우기 및 고정축 조정 */
       .hero-side {
         position: absolute;
         bottom: 0;
-        width: 30%;
-        max-width: 500px;
+        width: 20vw; /* 화면 해상도에 맞춰 시원하게 크기 확대 */
         pointer-events: none;
         user-select: none;
+        z-index: 1;
       }
       .hero-side img {
         width: 100%;
@@ -58,15 +58,15 @@ const pageTitle = "NEW YORK TEST";
         display: block;
         object-fit: contain;
       }
-      .hero-side.left  { left: 0; }
-      .hero-side.right { right: 0; }
+      .hero-side.left  { left: 2vw; }  /* 화면 왼쪽 끝에서 약간의 여백 */
+      .hero-side.right { right: 2vw; } /* 화면 오른쪽 끝에서 약간의 여백 */
 
-      /* 가운데 콘텐츠 — 양쪽 이미지 너비만큼 여백 확보 */
+      /* 가운데 콘텐츠 — 양쪽 이미지가 커짐에 따라 좌우 패딩 최적화 */
       .hero-content {
         position: relative;
         z-index: 2;
         animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        padding: 0 34%;
+        padding: 0 25%;
       }
 
       .logo-wrapper { display: flex; justify-content: center; margin-bottom: 24px; }
@@ -113,14 +113,18 @@ const pageTitle = "NEW YORK TEST";
         transform: scale(1.05);
       }
 
+      @media (max-width: 1024px) {
+        .hero-side { width: 25vw; }
+        .hero-content { padding: 0 15%; }
+      }
       @media (max-width: 768px) {
-        .hero-side { width: 44%; }
-        .hero-content { padding: 0 8%; }
+        .hero-side { width: 35vw; opacity: 0.5; }
+        .hero-content { padding: 0 5%; }
         .main-title { font-size: 2.2rem; }
         .subtitle { font-size: 1rem; }
       }
       @media (max-width: 480px) {
-        .hero-side { width: 50%; opacity: 0.35; }
+        .hero-side { width: 45vw; opacity: 0.25; }
         .hero-content { padding: 0; }
       }
 
@@ -155,7 +159,6 @@ const pageTitle = "NEW YORK TEST";
         margin: 0 auto;
       }
 
-      /* 우하단 "다음 섹션" 버튼 */
       .scroll-next-btn {
         position: absolute;
         bottom: 20px;
@@ -190,7 +193,6 @@ const pageTitle = "NEW YORK TEST";
         width: 100%;
       }
 
-      /* ── 러기지 태그 컨테이너 ── */
       .luggage-tag-container {
         position: relative;
         flex: 1;
@@ -207,7 +209,6 @@ const pageTitle = "NEW YORK TEST";
         animation: tagDrop 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
       }
 
-      /* ── 스트랩 (가죽끈) ── */
       .tag-strap {
         width: 22px;
         height: 32px;
@@ -236,7 +237,6 @@ const pageTitle = "NEW YORK TEST";
       }
       .theme-red .tag-strap::before { background: #fff4e0; }
 
-      /* ── 태그 본체 ── */
       .luggage-tag-body {
         position: relative;
         width: 100%;
@@ -250,7 +250,6 @@ const pageTitle = "NEW YORK TEST";
         overflow: hidden;
       }
 
-      /* 내부 점선 테두리 */
       .luggage-tag-body::before {
         content: '';
         position: absolute;
@@ -260,7 +259,6 @@ const pageTitle = "NEW YORK TEST";
         pointer-events: none;
       }
 
-      /* 타원형 알구멍 슬롯 */
       .tag-slot {
         position: absolute;
         top: 13px;
@@ -274,7 +272,6 @@ const pageTitle = "NEW YORK TEST";
         box-shadow: inset 0 1px 2px rgba(0,0,0,0.15);
       }
 
-      /* 항공편 코드 */
       .tag-flight {
         font-size: 0.6rem;
         font-weight: 700;
@@ -312,14 +309,12 @@ const pageTitle = "NEW YORK TEST";
       }
       .card-link:hover { opacity: 0.7; }
 
-      /* ── 테마: 베이지 ── */
       .theme-beige .luggage-tag-body { background-color: #edebe4; }
       .theme-beige .tag-flight { color: rgba(28,20,18,0.3); }
       .theme-beige h3, .theme-beige p { color: var(--brown); }
       .theme-beige .card-link { color: var(--brown); }
       .theme-beige:hover .luggage-tag-body { box-shadow: 0 16px 32px rgba(28,20,18,0.1); }
 
-      /* ── 테마: 블랙 ── */
       .theme-black .luggage-tag-body { background-color: #111; border-color: #111; }
       .theme-black .luggage-tag-body::before { border-color: rgba(255,255,255,0.12); }
       .theme-black .tag-slot { background-color: var(--canvas); border-color: #333; }
@@ -331,7 +326,6 @@ const pageTitle = "NEW YORK TEST";
       .theme-black .tag-barcode span { background: #fff; }
       .theme-black:hover .luggage-tag-body { background-color: #000; box-shadow: 0 20px 36px rgba(0,0,0,0.35); }
 
-      /* ── 테마: 레드 ── */
       .theme-red .luggage-tag-body { background-color: var(--orange); border-color: var(--orange); }
       .theme-red .luggage-tag-body::before { border-color: rgba(255,255,255,0.2); }
       .theme-red .tag-slot { background-color: var(--canvas); border-color: rgba(255,255,255,0.4); }
@@ -396,6 +390,7 @@ const pageTitle = "NEW YORK TEST";
         95%  { opacity: 0.12; }
         100% { left: 105%; opacity: 0; }
       }
+
       .about-section {
         min-height: 100vh;
         display: flex;
@@ -423,7 +418,6 @@ const pageTitle = "NEW YORK TEST";
         margin: 0 auto;
       }
 
-      /* 텍스트를 붙여넣는 공간 */
       .about-body {
         font-size: 0.95rem;
         line-height: 1.95;
@@ -431,7 +425,6 @@ const pageTitle = "NEW YORK TEST";
         text-align: left;
         width: 100%;
       }
-      /* 단락 사이 여백 */
       .about-body p + p { margin-top: 1.4em; }
 
       /* ═══════════════════════════════
@@ -516,7 +509,7 @@ const pageTitle = "NEW YORK TEST";
       <!-- 태그라인 -->
       <p class="archive-tagline">
         Take the test to discover your observer type, explore the photo archive,<br>
-        and lose yourself in a game set in the streets of New York.
+        and lose yourself in a game set in the streets of New New York.
       </p>
 
       <div class="tag-grid">
@@ -584,31 +577,75 @@ const pageTitle = "NEW YORK TEST";
         <div class="about-line"></div>
       </div>
 
-      <!-- ✏️ 여기에 설명 텍스트를 붙여넣으세요 -->
+      <!-- Methodological Reflection 본문 통합 완료 -->
       <div class="about-body">
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 500; margin-bottom: 20px;">Methodological Reflection: The New York Test</h3>
+
         <p>
-  The New York Test is neither a standard informational storage nor a passive digital museum built to exhibit historical archives with detached honor. It does not hand the visitor a predetermined conclusion or a curated definition of a city upon entering the first page of the web experience. Instead, this platform operates as an intentional, dynamic medium, a structured void much like the physical urban grid itself, designed to catalyze a shift within the observer. The central inquiry animating this digital project does not ask what New York is, but rather focuses on an entirely internal outcome: how does the word New York change inside the user after navigating this interface? This personal transformation represents the ultimate destination and the true icing on the cake.
-</p>
+          This project is neither an informational storage nor a passive exhibition of a great dead writer’s legacy displayed with honor. It does not hand the user a predetermined answer on the first page of the web experience. Instead, it operates as an intentional, dynamic medium, a giant void much like the urban grid itself, designed to shift something within the observer. The core question animating this digital inquiry is not what New York is, but rather how the word New York changes inside the users after interacting with this website. This internal transformation serves as the ultimate culmination of the project, the true icing on the cake.
+        </p>
 
-<p>
-  To investigate this perceptual shift, the project re-contextualizes a single, comprehensive archive of street photographs captured during open-ended walks through Manhattan and its surrounding boroughs. Serving as an aesthetic amplifier, the website funnels a singular raw reality into three separate conceptual lenses, a visual keyword recognition survey, a themed digital archive, and an interactive fiction game. By fracturing the same photographic assets across these distinct pathways, the project demonstrates how the urban landscape serves as an ambiguous text, shifting and reforming based completely on the framework through which it is perceived.
-</p>
+        <p>
+          To explore this transformation, the project repurposes a single, unified archive of personal photographs captured on the streets of New York, acting as an aesthetic amplifier. It channels a singular visual reality into three distinct conceptual lenses: a visual keyword recognition test, a themed photographic archive, and an interactive fiction game. By shifting the mode of curation, the project demonstrates how the cityscape functions as a blank canvas, fracturing and reforming based entirely on the framework through which it is perceived.
+        </p>
 
-<p>
-  The first lens, a twenty-eight-question visual survey, draws directly from Charles Baudelaire’s theory of dual aesthetics. Baudelaire defined beauty as a product of two forces, a transient body that reflects the passing trends, styles, and fashions of an era, and an eternal soul containing an absolute value. By forcing participants to make instinctual, split-second choices between contrasting pairs of images, the survey captures the immediate, subconscious reactions of the observer to the city’s surfaces. When these individual selections are mapped through force-directed network analysis algorithms, they reveal a structured underlying logic. Fleeting individual whims coalesce into eleven distinct observer types, demonstrating that our aesthetic responses to the modern grid are deeply patterned rather than chaotic.
-</p>
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 500; margin-top: 40px; margin-bottom: 16px; color: var(--orange);">1. Process: Curation, Filtering, and Methodological Decisions</h3>
 
-<p>
-  The second lens transforms the user into a traditional practitioner of flânerie through a curated photographic archive. Avoiding major landmarks and typical postcard views, the imagery isolates the overlooked gaps of the built environment, the quiet spaces between structures, the slant of afternoon light against aged brick, and the geometric shadows of fire escapes. Visitors are invited to pause and mark the visuals that cause a moment of internal arrest. The collective accumulation of these responses creates a secondary layer of data, transforming a private gallery experience into a shared, digital repository of human attention. This collaborative tracking maps the exact coordinates where the transient modern image connects with the eternal soul of collective resonance.
-</p>
+        <p>
+          The foundation of this digital inquiry rests on a methodology that translates physical street observation into structured digital data. The raw data consisted of several hundred street photographs taken during a period of open-ended walking through Manhattan and its outer boroughs. To transform this unorganized collection into a functional dataset for the visual survey, the data underwent a strict process of qualitative cleaning and pair-matching.
+        </p>
 
-<p>
-  The final lens introduces an element of deliberate artifice through an interactive fiction piece where a stray pigeon steals the user's phone in the middle of Manhattan. In an era increasingly defined by predictable, automated routines, the game invokes the spirit of Dandyism, an intellectual stance that champions originality and spiritual heroism against the mundane. By imposing a highly stylized, playful narrative maze over the physical geography of the city, the interface forces the user to navigate a web of choices, accidents, and sudden turns. Whether the user recovers the device is ultimately irrelevant. The game utilizes structural artifice to jolt the observer out of passive consumption, demanding an active, ironic engagement with the texture and atmosphere of the streets.
-</p>
+        <p>
+          The first major decision involved filtering out explicit temporal and geographical markers. Images featuring obvious commercial landmarks, recognizable advertisements, or explicit street signs were systematically removed. This step ensured that participants would respond to the underlying textures, forms, and atmospheric qualities of the city rather than their preconceived geographical knowledge or memories of specific tourist destinations.
+        </p>
 
-<p>
-  By splitting a singular urban landscape into a quantitative network, a qualitative archive, and an interactive narrative, this project expands the historical boundaries of the flâneur. The website functions not as a static repository of data, but as a living amplifier of human perception. It invites you to step inside, wander without a pre-mapped destination, and discover how the digital city re-authors itself within your own mind.
-</p>
+        <p>
+          The remaining photographs were then categorized into binary pairs to establish a series of twenty-eight visual questions. Each pair was curated to encode a specific aesthetic or philosophical tension. The cleaning process here required balancing the visual weight of the images. For instance, when testing the tension between raw and refined urban spaces, the photographs were balanced for lighting, color saturation, and geometric composition. This careful alignment ensured that the user’s choice would be driven by the conceptual dichotomy rather than accidental visual noise, such as one image being brighter or more colorful than its partner.
+        </p>
+
+        <p>
+          For the second lens, the photographic archive, the images were cleaned and grouped into three distinct thematic exhibitions: Hello, Gorgeous!, No Way Home, and The Eye of a Tornado. The primary decision here was to curate based on spatial fragments rather than panoramic views. The focus was deliberately shifted toward architectural gaps, the precise angle of afternoon light striking a brick facade, or the solitary shadow of a fire escape cast across a doorway. This structural ordering was designed to reflect the classic methodology of flânerie, converting passive snapshots into a highly deliberate digital text.
+        </p>
+
+        <p>
+          Finally, the same asset pool was adapted for the third lens, an interactive fiction piece built in Twine. The primary data decision involved mapping specific image assets to branching narrative choices. The photographs were stripped of their original real-world contexts and embedded into an absurd, fictionalized Manhattan maze where a pigeon has stolen the user's phone. This translation of static image data into interactive narrative nodes required a complete restructuring of how the files were cataloged, shifting their function from passive aesthetic objects to active choices within a digital environment.
+        </p>
+
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 500; margin-top: 40px; margin-bottom: 16px; color: var(--orange);">2. Limitations: The Boundaries of the Digital Dataset</h3>
+
+        <p>
+          Every digital dataset carries inherent absences, and recognizing what is missing is essential to understanding the boundaries of this methodology. The most prominent limitation of the current dataset is its reliance on a singular, subjective eye. Because all the photographs were taken by a single individual, the archive inherently lacks a pluralistic foundation. It captures one specific walking route, one particular set of historical moments, and one individual's spontaneous attention. The archive cannot represent the vast, contradictory totalities of New York, nor can it account for the sensory experiences that escape visual capture, such as sound, smell, and tactile density.
+        </p>
+
+        <p>
+          Furthermore, the analytical tools utilized in this project possess distinct operational constraints. While Gephi is highly effective at rendering structural relationships between aesthetic preferences, the tool cannot interpret the psychological depth behind a user's choice. The network analysis software processes data mathematically, treating an instinctual, split-second click with the same statistical weight as a deeply considered philosophical decision. It maps the proximity between selections, but it cannot explain why a user felt drawn to a specific image pair or what personal memories informed that attraction.
+        </p>
+
+        <p>
+          In the interactive fiction component, the Twine framework enforces a rigid, algorithmic logic that runs counter to the true freedom of physical walking. In the physical streets of Manhattan, a walker can choose an infinite number of paths, pause indefinitely, or change their pace at will. The digital tool, by contrast, restricts the user to binary or tertiary branching paths. The digital flâneur in this game is ultimately trapped within a pre-scripted labyrinth of code, demonstrating that while digital tools can simulate urban complexity, they inevitably reduce the radical spontaneity of the physical world into a structured set of electronic parameters.
+        </p>
+
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 500; margin-top: 40px; margin-bottom: 16px; color: var(--orange);">3. The Digital Difference: Network Analysis and Collective Vision</h3>
+
+        <p>
+          Despite these limitations, the transition from traditional urban observation to digital inquiry reveals structural insights that reading or walking alone could never uncover. This digital difference is most clearly illustrated in the integration of Charles Baudelaire’s aesthetic theories with modern network visualization. Baudelaire posited that beauty is a dual entity, an intricate combination of an absolute, unchanging value, which he called the eternal soul, and a fleeting, culturally specific element, termed the transient body.
+        </p>
+
+        <p>
+          Traditional observation allows an individual to notice these elements in isolation. However, by subjecting the visual survey results to force-directed graph algorithms in Gephi, the digital inquiry makes the invisible architecture of collective taste visible. For example, a traditional close reading of individual survey responses might suggest that aesthetic choices are entirely random, highly subjective, and chaotic. Yet, when the data is visualized as a network graph, a striking phenomenon occurs. The random, fleeting choices of hundreds of disparate users begin to cluster together, revealing eleventh distinct observer types.
+        </p>
+
+        <p>
+          I never fully grasped the structured nature of urban aesthetics until I visualized the network. The graph revealed that a preference for raw, unfiltered environments directly correlates with a specific appreciation for transit and anonymity, clustering users into distinct profiles like the Grand Central Clock or the Chinatown Unicorn. This digital grouping proves that what Baudelaire called the transient body of beauty is not a chaotic mess of individual whims. Instead, it possesses an underlying structural logic. The network visualization uncovers a shared, collective vision, demonstrating that the modern city shapes the minds of its observers in predictable, repeating patterns.
+        </p>
+
+        <p>
+          Similarly, the digital format of the photographic archive introduces a layer of data that traditional gallery exhibitions cannot replicate. In a physical gallery, a visitor's pause before a photograph remains a private, invisible event. In this digital space, every click that registers a heart on an image accumulates into a collective pool of behavioral data. The website transforms the individual act of looking into a shared archive of human attention. By analyzing which specific gaps or shadows hold the collective gaze across different user backgrounds, the digital inquiry identifies the exact points where the transient image touches something universal.
+        </p>
+
+        <p>
+          Ultimately, the digital inquiry fulfills Baudelaire’s demand that the artist become a passionate spectator who extracts the eternal from the refuge of the momentary. By splintering a single geographic source into a quantitative survey, a qualitative archive, and a playful interactive game, the project acts as a powerful amplifier for the theory of flânerie. It forces the digital interface to do what a physical book or a simple photo gallery cannot, it maps the invisible currents of human perception, revealing how the modern grid redraws itself within the minds of those who wander through it.
+        </p>
       </div>
     </section>
 
