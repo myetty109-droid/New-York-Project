@@ -67,7 +67,6 @@ const pageTitle = "New York Test";
         margin-bottom: 48px;
       }
 
-      /* 섹션 구분선 */
       .section-divider {
         display: flex;
         align-items: center;
@@ -99,7 +98,6 @@ const pageTitle = "New York Test";
         overflow: hidden;
       }
 
-      /* embed.js가 자동 리사이즈해주므로 height는 min만 지정 */
       iframe[data-tally-src] {
         width: 100%;
         min-height: 600px;
@@ -135,7 +133,6 @@ const pageTitle = "New York Test";
       }
       .analysis-image-wrap:hover img { opacity: 0.88; }
 
-      /* 확대 힌트 배지 */
       .zoom-hint {
         position: absolute;
         bottom: 10px;
@@ -150,7 +147,6 @@ const pageTitle = "New York Test";
         pointer-events: none;
       }
 
-      /* 라이트박스 오버레이 */
       .lightbox {
         display: none;
         position: fixed;
@@ -182,7 +178,6 @@ const pageTitle = "New York Test";
         border: none;
       }
 
-      /* 이미지 없을 때 placeholder */
       .image-placeholder {
         width: 100%;
         aspect-ratio: 4 / 3;
@@ -197,7 +192,6 @@ const pageTitle = "New York Test";
       }
       .image-placeholder span { font-size: 2rem; }
 
-      /* 텍스트 단락 간격 제거해서 이미지 높이만큼 글자가 채워지도록 */
       .analysis-text h3 {
         font-family: 'Playfair Display', serif;
         font-size: 1.2rem;
@@ -226,20 +220,90 @@ const pageTitle = "New York Test";
       }
 
       /* ───────────────────────────────────────
-         TYPE CARD PASTEL COLORS
-         파스텔톤 — 배경과 조화롭게
+         SECTION 3 — DATA VISUALIZATION
       ─────────────────────────────────────── */
-      /* 01 노란색 */
+      .viz-metric-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        margin-bottom: 32px;
+      }
+      .viz-metric {
+        background: var(--white);
+        border: 2px solid var(--brown);
+        border-radius: 8px;
+        padding: 16px 18px;
+      }
+      .viz-metric-label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.08rem;
+        color: var(--gray);
+        margin-bottom: 6px;
+      }
+      .viz-metric-value {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.8rem;
+        font-weight: 500;
+        color: var(--brown);
+        line-height: 1;
+      }
+      .viz-metric-sub {
+        font-size: 0.75rem;
+        color: var(--gray);
+        margin-top: 4px;
+      }
+
+      .viz-chart-label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.1rem;
+        color: var(--gray);
+        margin-bottom: 12px;
+      }
+
+      .viz-legend {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+      }
+      .viz-legend-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.78rem;
+        color: var(--gray);
+      }
+      .viz-legend-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 2px;
+        flex-shrink: 0;
+      }
+
+      .viz-chart-wrap {
+        background: var(--white);
+        border: 2px solid var(--brown);
+        border-radius: 8px;
+        padding: 20px 24px;
+        margin-bottom: 20px;
+      }
+
+      .viz-two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      /* ───────────────────────────────────────
+         SECTION 4 — 11 TYPE ARCHIVE
+      ─────────────────────────────────────── */
       .card-color-01 { background: #f5f0d0; }
-      /* 02 갈색 (웜 베이지 브라운) */
       .card-color-02 { background: #ecdfc8; }
-      /* 03 하늘색 */
       .card-color-03 { background: #d6eaf2; }
-      /* 04 빨간색 (파스텔 코랄) */
       .card-color-04 { background: #f5d9d3; }
-      /* 05 민트 */
       .card-color-05 { background: #d4ede6; }
-      /* 06 미라 — 얇은 연필선 줄무늬 패턴 */
       .card-color-06 {
         background-color: #f8f7f4;
         background-image: repeating-linear-gradient(
@@ -250,18 +314,12 @@ const pageTitle = "New York Test";
           rgba(60, 50, 40, 0.13) 11px
         );
       }
-      /* 07 분홍 */
       .card-color-07 { background: #f5dde8; }
-      /* 08 어두운 금색 (황색) */
       .card-color-08 { background: #ece4c0; }
-      /* 09 보라 */
       .card-color-09 { background: #e8dff5; }
-      /* 11 보라+하늘 그라데이션 */
+      .card-color-10 { background: #e8e6e3; }
       .card-color-11 { background: linear-gradient(135deg, #e4daf5 0%, #cfe8f5 100%); }
 
-      /* ───────────────────────────────────────
-         SECTION 3 — 11 TYPE ARCHIVE
-      ─────────────────────────────────────── */
       .type-intro {
         font-size: 0.9rem;
         line-height: 1.8;
@@ -299,10 +357,9 @@ const pageTitle = "New York Test";
         font-size: 1.05rem;
         font-weight: 500;
         line-height: 1.3;
-        min-height: 2.6rem; /* 두 줄 높이 고정 — 카드 크기 통일 */
+        min-height: 2.6rem;
       }
 
-      /* 유형 카드 이미지 — 흰 배경 고정 */
       .type-card-img {
         width: 100%;
         aspect-ratio: 4 / 3;
@@ -313,7 +370,6 @@ const pageTitle = "New York Test";
         background: #ffffff;
       }
 
-      /* 카드 전체를 링크처럼 */
       .type-card-link {
         text-decoration: none;
         color: inherit;
@@ -331,42 +387,19 @@ const pageTitle = "New York Test";
       }
 
       /* ───────────────────────────────────────
-         TYPE CARD PASTEL BACKGROUND COLORS
-         이미지·글자는 그대로, 카드 배경색만 변경
-      ─────────────────────────────────────── */
-      .card-color-01 { background: #f5f0d0; }
-      .card-color-02 { background: #ecdfc8; }
-      .card-color-03 { background: #d6eaf2; }
-      .card-color-04 { background: #f5d9d3; }
-      .card-color-05 { background: #d4ede6; }
-      .card-color-06 {
-        background-color: #f8f7f4;
-        background-image: repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 10px,
-          rgba(60, 50, 40, 0.12) 10px,
-          rgba(60, 50, 40, 0.12) 11px
-        );
-      }
-      .card-color-07 { background: #f5dde8; }
-      .card-color-08 { background: #ece4c0; }
-      .card-color-09 { background: #e8dff5; }
-      .card-color-10 { background: #e8e6e3; }
-      .card-color-11 { background: linear-gradient(135deg, #e4daf5 0%, #cfe8f5 100%); }
-
-      /* ───────────────────────────────────────
          RESPONSIVE
       ─────────────────────────────────────── */
       @media (max-width: 720px) {
         .analysis-grid { grid-template-columns: 1fr; }
         .type-grid { grid-template-columns: repeat(2, 1fr); }
-        .type-grid .type-card:last-child:nth-child(3n - 2) { grid-column: auto; }
         .page-title { font-size: 2rem; }
+        .viz-metric-row { grid-template-columns: repeat(2, 1fr); }
+        .viz-two-col { grid-template-columns: 1fr; }
       }
 
       @media (max-width: 480px) {
         .type-grid { grid-template-columns: 1fr; }
+        .viz-metric-row { grid-template-columns: repeat(2, 1fr); }
       }
     </style>
 
@@ -376,10 +409,8 @@ const pageTitle = "New York Test";
   <body>
     <div class="page-wrapper">
 
-      <!-- 뒤로가기 -->
       <a href="/" class="back-btn">← BACK TO HOMEPAGE</a>
 
-      <!-- 페이지 헤더 -->
       <h1 class="page-title">New York Test</h1>
       <p class="page-subtitle">Find out what type of city observer you are!</p>
 
@@ -405,7 +436,6 @@ const pageTitle = "New York Test";
 
       <div class="analysis-grid">
 
-        <!-- 클릭하면 확대 -->
         <div class="analysis-image-wrap" id="gephi-thumb" onclick="document.getElementById('gephi-lightbox').classList.add('open')">
           <img
             src="/gephi-network.png"
@@ -432,7 +462,6 @@ const pageTitle = "New York Test";
         </div>
       </div>
 
-      <!-- 라이트박스 -->
       <div class="lightbox" id="gephi-lightbox" onclick="this.classList.remove('open')">
         <button class="lightbox-close" onclick="document.getElementById('gephi-lightbox').classList.remove('open')">×</button>
         <img src="/gephi-network.png" alt="Gephi network visualization enlarged" />
@@ -440,7 +469,253 @@ const pageTitle = "New York Test";
 
 
       <!-- ══════════════════════════════════════
-           SECTION 3 · 11 TYPE ARCHIVE
+           SECTION 3 · DATA VISUALIZATION
+      ══════════════════════════════════════ -->
+      <div class="section-divider"><h2>DATA VISUALIZATION</h2></div>
+
+      <!-- 요약 수치 -->
+      <div class="viz-metric-row">
+        <div class="viz-metric">
+          <div class="viz-metric-label">RESPONDENTS</div>
+          <div class="viz-metric-value" id="stat-total">—</div>
+        </div>
+        <div class="viz-metric">
+          <div class="viz-metric-label">VISITED NEW YORK</div>
+          <div class="viz-metric-value" id="stat-visited">—</div>
+          <div class="viz-metric-sub" id="stat-visited-sub"></div>
+        </div>
+        <div class="viz-metric">
+          <div class="viz-metric-label">AVG SCORE</div>
+          <div class="viz-metric-value" id="stat-avg">—</div>
+          <div class="viz-metric-sub" id="stat-range"></div>
+        </div>
+        <div class="viz-metric">
+          <div class="viz-metric-label">SURVEY PERIOD</div>
+          <div class="viz-metric-value">37</div>
+          <div class="viz-metric-sub">days (May–Jun 2026)</div>
+        </div>
+      </div>
+
+      <!-- 차원 선호도 차트 -->
+      <div class="viz-chart-wrap">
+        <div class="viz-chart-label">AESTHETIC DIMENSION PREFERENCES</div>
+        <div class="viz-legend">
+          <span class="viz-legend-item">
+            <span class="viz-legend-dot" style="background:#e24d3a;"></span>Option A
+          </span>
+          <span class="viz-legend-item">
+            <span class="viz-legend-dot" style="background:#d6cfc9;"></span>Option B
+          </span>
+        </div>
+        <div style="position: relative; width: 100%; height: 280px;">
+          <canvas id="dimChart" role="img" aria-label="Horizontal stacked bar chart showing aesthetic dimension preferences across 7 dimensions. Refined, Freedom, and Global are dominant choices.">Refined ~82%, Freedom ~61%, Global ~61%, Futuristic ~54%, Closed ~54%, Intimate ~54%, Deliberate ~54%.</canvas>
+        </div>
+      </div>
+
+      <!-- 하단 두 개 차트 -->
+      <div class="viz-two-col">
+        <div class="viz-chart-wrap">
+          <div class="viz-chart-label">SCORE DISTRIBUTION</div>
+          <div style="position: relative; width: 100%; height: 200px;">
+            <canvas id="scoreChart" role="img" aria-label="Bar chart of score distribution. Most scores fall between 10 and 16.">Score distribution: most respondents scored between 10 and 16.</canvas>
+          </div>
+        </div>
+        <div class="viz-chart-wrap">
+          <div class="viz-chart-label">VISITORS VS NON-VISITORS — AVG SCORE</div>
+          <div style="position: relative; width: 100%; height: 200px;">
+            <canvas id="visitChart" role="img" aria-label="Bar chart comparing average scores of New York visitors versus non-visitors.">Visitors average slightly higher than non-visitors.</canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chart.js -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+      <script>
+        const RAW_DATA = [
+          {score:20,ny:'Yes',answers:['Closed','Refined','Anonymous','Nostalgic','Deliberate','Global','Freedom','Anonymous','Local','Opened','Anonymous','Futuristic','Deliberate','Global','Order','Refined','Nostalgic','Incidental','Global','Freedom','Closed','Incidental','Order','Closed','Refined','Anonymous','Futuristic','Closed']},
+          {score:28,ny:'Yes',answers:['Closed','Refined','Anonymous','Futuristic','Deliberate','Global','Order','Anonymous','Global','Closed','Anonymous','Futuristic','Deliberate','Global','Order','Refined','Futuristic','Deliberate','Global','Order','Closed','Deliberate','Order','Closed','Refined','Anonymous','Futuristic','Closed']},
+          {score:15,ny:'No',answers:['Opened','Raw','Anonymous','Futuristic','Deliberate','Global','Freedom','Intimate','Global','Opened','Intimate','Futuristic','Incidental','Local','Freedom','Refined','Nostalgic','Deliberate','Local','Order','Opened','Deliberate','Order','Closed','Refined','Anonymous','Futuristic','Opened']},
+          {score:11,ny:'Yes',answers:['Opened','Refined','Intimate','Futuristic','Deliberate','Local','Order','Intimate','Local','Opened','Anonymous','Nostalgic','Incidental','Global','Freedom','Refined','Futuristic','Incidental','Local','Freedom','Opened','Incidental','Order','Closed','Raw','Intimate','Futuristic','Opened']},
+          {score:11,ny:'Yes',answers:['Closed','Refined','Intimate','Nostalgic','Deliberate','Global','Order','Intimate','Local','Opened','Anonymous','Nostalgic','Deliberate','Global','Freedom','Refined','Nostalgic','Incidental','Global','Freedom','Opened','Incidental','Order','Opened','Raw','Intimate','Nostalgic','Opened']},
+          {score:11,ny:'Yes',answers:['Opened','Refined','Intimate','Nostalgic','Deliberate','Local','Order','Intimate','Local','Opened','Intimate','Nostalgic','Deliberate','Local','Freedom','Refined','Futuristic','Deliberate','Global','Freedom','Opened','Deliberate','Freedom','Opened','Refined','Intimate','Futuristic','Opened']},
+          {score:11,ny:'Yes',answers:['Closed','Refined','Intimate','Nostalgic','Deliberate','Global','Order','Intimate','Local','Opened','Anonymous','Nostalgic','Deliberate','Global','Freedom','Refined','Nostalgic','Incidental','Global','Freedom','Opened','Incidental','Freedom','Opened','Raw','Anonymous','Nostalgic','Opened']},
+          {score:13,ny:'Yes',answers:['Closed','Raw','Intimate','Nostalgic','Incidental','Global','Freedom','Anonymous','Local','Opened','Anonymous','Nostalgic','Deliberate','Global','Freedom','Refined','Nostalgic','Deliberate','Global','Freedom','Opened','Deliberate','Order','Closed','Raw','Intimate','Futuristic','Opened']},
+          {score:10,ny:'No',answers:['Opened','Refined','Intimate','Futuristic','Deliberate','Global','Order','Intimate','Local','Opened','Anonymous','Nostalgic','Incidental','Global','Freedom','Refined','Nostalgic','Incidental','Global','Freedom','Opened','Incidental','Freedom','Opened','Raw','Intimate','Futuristic','Opened']},
+          {score:23,ny:'Yes',answers:['Closed','Refined','Anonymous','Futuristic','Deliberate','Global','Order','Anonymous','Global','Opened','Anonymous','Futuristic','Incidental','Global','Freedom','Refined','Futuristic','Incidental','Global','Order','Closed','Incidental','Order','Closed','Refined','Anonymous','Futuristic','Closed']},
+          {score:11,ny:'Yes',answers:['Closed','Refined','Intimate','Nostalgic','Deliberate','Local','Order','Intimate','Global','Opened','Anonymous','Nostalgic','Incidental','Local','Freedom','Raw','Nostalgic','Deliberate','Local','Freedom','Closed','Incidental','Freedom','Closed','Refined','Anonymous','Nostalgic','Opened']},
+          {score:14,ny:'No',answers:['Closed','Refined','Intimate','Futuristic','Deliberate','Local','Freedom','Intimate','Global','Closed','Intimate','Nostalgic','Incidental','Local','Order','Refined','Nostalgic','Incidental','Local','Freedom','Closed','Incidental','Order','Closed','Raw','Anonymous','Futuristic','Closed']},
+          {score:13,ny:'No',answers:['Closed','Raw','Anonymous','Futuristic','Incidental','Global','Freedom','Intimate','Global','Opened','Anonymous','Nostalgic','Deliberate','Local','Order','Raw','Nostalgic','Deliberate','Local','Order','Opened','Incidental','Order','Opened','Raw','Anonymous','Nostalgic','Closed']},
+          {score:21,ny:'Yes',answers:['Closed','Refined','Intimate','Futuristic','Deliberate','Global','Order','Anonymous','Local','Closed','Anonymous','Nostalgic','Incidental','Global','Order','Refined','Futuristic','Incidental','Global','Order','Opened','Incidental','Order','Closed','Refined','Anonymous','Futuristic','Closed']},
+          {score:15,ny:'Yes',answers:['Closed','Refined','Intimate','Nostalgic','Deliberate','Local','Freedom','Intimate','Local','Closed','Anonymous','Nostalgic','Deliberate','Global','Freedom','Refined','Futuristic','Deliberate','Global','Freedom','Opened','Deliberate','Order','Opened','Raw','Anonymous','Futuristic','Opened']},
+          {score:10,ny:'Yes',answers:['Opened','Refined','Anonymous','Futuristic','Deliberate','Local','Freedom','Anonymous','Local','Opened','Intimate','Nostalgic','Deliberate','Local','Freedom','Refined','Nostalgic','Deliberate','Local','Freedom','Opened','Deliberate','Order','Opened','Raw','Intimate','Nostalgic','Opened']},
+          {score:12,ny:'Yes',answers:['Opened','Refined','Intimate','Nostalgic','Deliberate','Global','Freedom','Intimate','Local','Opened','Intimate','Nostalgic','Deliberate','Global','Freedom','Refined','Futuristic','Deliberate','Global','Freedom','Opened','Incidental','Order','Opened','Refined','Intimate','Futuristic','Opened']},
+          {score:12,ny:'Yes',answers:['Closed','Refined','Intimate','Futuristic','Deliberate','Global','Order','Intimate','Local','Opened','Anonymous','Nostalgic','Incidental','Global','Freedom','Refined','Nostalgic','Incidental','Local','Freedom','Opened','Incidental','Order','Opened','Raw','Intimate','Futuristic','Closed']},
+          {score:7,ny:'No',answers:['Closed','Refined','Intimate','Nostalgic','Incidental','Local','Freedom','Intimate','Global','Opened','Anonymous','Nostalgic','Incidental','Local','Freedom','Refined','Nostalgic','Incidental','Local','Freedom','Opened','Incidental','Freedom','Opened','Raw','Anonymous','Futuristic','Opened']},
+          {score:12,ny:'No',answers:['Closed','Refined','Intimate','Futuristic','Deliberate','Local','Freedom','Intimate','Local','Closed','Anonymous','Nostalgic','Incidental','Local','Freedom','Refined','Nostalgic','Deliberate','Global','Freedom','Closed','Incidental','Order','Opened','Refined','Intimate','Nostalgic','Opened']},
+          {score:10,ny:'No',answers:['Closed','Refined','Intimate','Futuristic','Incidental','Global','Order','Intimate','Local','Opened','Intimate','Nostalgic','Incidental','Local','Freedom','Raw','Futuristic','Incidental','Global','Freedom','Opened','Incidental','Order','Opened','Raw','Anonymous','Futuristic','Opened']},
+          {score:10,ny:'No',answers:['Closed','Refined','Intimate','Futuristic','Incidental','Local','Freedom','Intimate','Local','Opened','Intimate','Nostalgic','Deliberate','Local','Freedom','Raw','Futuristic','Incidental','Global','Order','Opened','Deliberate','Freedom','Closed','Raw','Anonymous','Nostalgic','Opened']},
+          {score:14,ny:'No',answers:['Closed','Refined','Intimate','Nostalgic','Deliberate','Global','Order','Intimate','Local','Closed','Anonymous','Nostalgic','Deliberate','Local','Freedom','Refined','Futuristic','Deliberate','Local','Freedom','Opened','Incidental','Freedom','Closed','Refined','Intimate','Futuristic','Opened']},
+          {score:13,ny:'No',answers:['Opened','Refined','Anonymous','Futuristic','Incidental','Global','Order','Intimate','Local','Opened','Anonymous','Nostalgic','Incidental','Global','Freedom','Refined','Futuristic','Deliberate','Global','Freedom','Opened','Incidental','Freedom','Opened','Raw','Anonymous','Futuristic','Opened']},
+          {score:7,ny:'Yes',answers:['Closed','Refined','Intimate','Nostalgic','Incidental','Local','Freedom','Anonymous','Local','Opened','Anonymous','Nostalgic','Deliberate','Local','Freedom','Refined','Nostalgic','Deliberate','Local','Freedom','Opened','Incidental','Freedom','Opened','Raw','Intimate','Nostalgic','Opened']},
+          {score:9,ny:'Yes',answers:['Closed','Refined','Intimate','Nostalgic','Deliberate','Global','Freedom','Intimate','Local','Opened','Anonymous','Nostalgic','Incidental','Local','Freedom','Refined','Futuristic','Incidental','Global','Freedom','Opened','Incidental','Freedom','Opened','Raw','Intimate','Futuristic','Opened']},
+          {score:14,ny:'No',answers:['Closed','Refined','Intimate','Nostalgic','Deliberate','Local','Freedom','Intimate','Local','Closed','Anonymous','Nostalgic','Incidental','Global','Freedom','Refined','Nostalgic','Deliberate','Global','Freedom','Opened','Incidental','Order','Closed','Raw','Anonymous','Futuristic','Closed']},
+          {score:14,ny:'No',answers:['Closed','Refined','Intimate','Futuristic','Deliberate','Local','Order','Anonymous','Global','Closed','Intimate','Nostalgic','Incidental','Global','Freedom','Refined','Nostalgic','Deliberate','Local','Freedom','Opened','Incidental','Order','Closed','Raw','Anonymous','Nostalgic','Opened']},
+          {score:14,ny:'Yes',answers:['Closed','Refined','Intimate','Futuristic','Deliberate','Global','Freedom','Anonymous','Local','Opened','Anonymous','Nostalgic','Incidental','Global','Freedom','Refined','Nostalgic','Incidental','Global','Freedom','Opened','Incidental','Order','Closed','Raw','Anonymous','Nostalgic','Closed']},
+        ];
+
+        // 요약 수치 자동 계산
+        const total = RAW_DATA.length;
+        const visited = RAW_DATA.filter(r => r.ny === 'Yes').length;
+        const allScores = RAW_DATA.map(r => r.score);
+        const avgScore = (allScores.reduce((a,b) => a+b, 0) / total).toFixed(1);
+        const minScore = Math.min(...allScores);
+        const maxScore = Math.max(...allScores);
+        document.getElementById('stat-total').textContent = total;
+        document.getElementById('stat-visited').textContent = Math.round(visited/total*100) + '%';
+        document.getElementById('stat-visited-sub').textContent = `${visited} of ${total}`;
+        document.getElementById('stat-avg').textContent = avgScore;
+        document.getElementById('stat-range').textContent = `Range: ${minScore}–${maxScore}`;
+
+        const DIMS = [
+          {label:'Closed / Opened',   a:'Closed',     b:'Opened',     idx:[0,20]},
+          {label:'Refined / Raw',     a:'Refined',    b:'Raw',        idx:[1,24]},
+          {label:'Anonymous / Intimate', a:'Anonymous', b:'Intimate', idx:[2,7,10,25]},
+          {label:'Futuristic / Nostalgic', a:'Futuristic', b:'Nostalgic', idx:[3,11,16,26]},
+          {label:'Deliberate / Incidental', a:'Deliberate', b:'Incidental', idx:[4,12,17,21]},
+          {label:'Global / Local',    a:'Global',     b:'Local',      idx:[5,8,13,18]},
+          {label:'Order / Freedom',   a:'Order',      b:'Freedom',    idx:[6,9,14,19,22]},
+        ];
+
+        const dimPcts = DIMS.map(d => {
+          let aCount = 0, total = 0;
+          RAW_DATA.forEach(r => {
+            d.idx.forEach(i => { total++; if (r.answers[i] === d.a) aCount++; });
+          });
+          return Math.round(aCount / total * 100);
+        });
+
+        const BROWN   = '#1c1412';
+        const ORANGE  = '#e24d3a';
+        const GRAY    = '#5c524f';
+        const LIGHT   = '#d6cfc9';
+        const GRID    = 'rgba(28,20,18,0.08)';
+
+        // 차원 선호도 차트
+        new Chart(document.getElementById('dimChart'), {
+          type: 'bar',
+          data: {
+            labels: DIMS.map(d => d.label),
+            datasets: [
+              {
+                label: 'Option A',
+                data: dimPcts,
+                backgroundColor: ORANGE,
+                borderRadius: 4,
+                borderSkipped: false,
+              },
+              {
+                label: 'Option B',
+                data: dimPcts.map(v => 100 - v),
+                backgroundColor: LIGHT,
+                borderRadius: 4,
+                borderSkipped: false,
+              },
+            ]
+          },
+          options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.raw}%` } }
+            },
+            scales: {
+              x: {
+                stacked: true,
+                max: 100,
+                ticks: { color: GRAY, font: { size: 11 }, callback: v => v + '%' },
+                grid: { color: GRID }
+              },
+              y: {
+                stacked: true,
+                ticks: { color: BROWN, font: { size: 12 } },
+                grid: { display: false }
+              }
+            }
+          }
+        });
+
+        // 스코어 분포 차트
+        const bins = [0,0,0,0,0];
+        RAW_DATA.forEach(r => {
+          if      (r.score <= 10) bins[0]++;
+          else if (r.score <= 13) bins[1]++;
+          else if (r.score <= 16) bins[2]++;
+          else if (r.score <= 20) bins[3]++;
+          else                    bins[4]++;
+        });
+
+        new Chart(document.getElementById('scoreChart'), {
+          type: 'bar',
+          data: {
+            labels: ['7–10','11–13','14–16','17–20','21–28'],
+            datasets: [{
+              data: bins,
+              backgroundColor: ORANGE,
+              borderRadius: 4,
+              borderSkipped: false,
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { ticks: { color: GRAY, font: { size: 11 } }, grid: { display: false } },
+              y: { ticks: { color: GRAY, stepSize: 2 }, grid: { color: GRID } }
+            }
+          }
+        });
+
+        // 방문자 vs 비방문자 차트
+        const avg = arr => parseFloat((arr.reduce((a,b) => a+b, 0) / arr.length).toFixed(1));
+        const visScores  = RAW_DATA.filter(r => r.ny === 'Yes').map(r => r.score);
+        const nonScores  = RAW_DATA.filter(r => r.ny === 'No').map(r => r.score);
+
+        new Chart(document.getElementById('visitChart'), {
+          type: 'bar',
+          data: {
+            labels: [`Visited NY (n=${visScores.length})`, `Not visited (n=${nonScores.length})`],
+            datasets: [{
+              data: [avg(visScores), avg(nonScores)],
+              backgroundColor: [ORANGE, LIGHT],
+              borderRadius: 4,
+              borderSkipped: false,
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: { callbacks: { label: ctx => ` Avg score: ${ctx.raw}` } }
+            },
+            scales: {
+              x: { ticks: { color: GRAY, font: { size: 11 } }, grid: { display: false } },
+              y: { min: 0, max: 20, ticks: { color: GRAY }, grid: { color: GRID } }
+            }
+          }
+        });
+      </script>
+
+      <p style="margin-top: 12px; font-size: 0.8rem; color: var(--gray);">
+        <a href="https://docs.google.com/spreadsheets/d/172yZ4fFtdKCoQEz0XnyBkKKHzBFqzAsW0TzfUutgthE/edit?usp=sharing" target="_blank" rel="noopener" style="color: var(--gray); text-decoration: none; border-bottom: 1px solid var(--gray);">Spread Sheet Data</a>
+      </p>
+
+
+      <!-- ══════════════════════════════════════
+           SECTION 4 · 11 TYPE ARCHIVE
       ══════════════════════════════════════ -->
       <div class="section-divider"><h2>TYPE ARCHIVE</h2></div>
 
@@ -538,8 +813,8 @@ const pageTitle = "New York Test";
           </div>
         </a>
 
-      </div><!-- /type-grid -->
+      </div>
 
-    </div><!-- /page-wrapper -->
+    </div>
   </body>
 </html>
